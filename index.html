@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>REST Commander - Parallel Async HTTP Client as a Service, Speaks HTTP at Scale (Formerly known as REST Superman)  </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="REST Commander - Parallel Async HTTP client as a service ; Akka based REST client, scalable web server monitoring, web service, eBay Opensource. (Formerly known as REST Superman) ">
+    <meta name="author" content="eBay Software Foundation">
+    
+    <!-- Le styles -->
+    
+    <link href="public/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="public/stylesheets/font-awesome.css" rel="stylesheet">
+    <link href="public/stylesheets/font-awesome.min.css" rel="stylesheet">    
+    <link href="public/stylesheets/bootstrap-responsive.min.css" rel="stylesheet">
+  
+	  <link href="public/stylesheets/docs.css" rel="stylesheet">
+	
+	  <link rel="shortcut icon" href="public/images/ico/favicon.ico">
+
+  </head>
+
+  <body>
+  
+
+
+<div class="navbar navbar-fixed-top navbar-inverse">
+	<div class="navbar-inner">
+			<a class="brand" href="index.html">Commander</a>
+		<div class="container">
+		
+			<div class="nav-collapse">
+				<ul class="nav">
+					
+				  <li class="active"><a href="#">Home</a></li>
+          <li><a href="get-started.html">Get Started</a></li>
+				  <li><a href="documentation.html">Documentation</a></li>
+				  <li><a href="usecase.html">Use Cases</a></li>
+				  <li><a href="monitoring-sample.html">Monitoring Sample</a></li>
+          <li><a href="contact.html">Contact</a></li>				
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="jumbotron masthead">
+	
+	<div class="container">
+	
+		<h1>REST Commander </h1> 
+<p>		(Formerly known as REST Superman) <br/>
+    Fast Parallel Async
+        
+     HTTP/<abbr title="Representational State Transfer (REST) is a style of software architecture for distributed systems such as the World Wide Web. REST has emerged as a predominant web API design model.">REST</abbr>/SOAP
+      client as a service to monitor and manage 10,000 web servers. 
+       <br/>   
+   
+     Sends requests to 1000 servers with response aggregation in 10 seconds. or 10,000 servers in 50 seconds.<sup class="superscript"><a href="#a_notes">*</a></sup>
+
+
+     <br/>
+     <br/>
+
+
+      <abbr title="Generic response aggregation by user-defined regular expression matching.">Response analysis</abbr>
+     &nbsp;&nbsp; <abbr title="Quickly check any HTTP results from an ad hoc list of servers with generic response aggregation by regular expression matching. FAST: No dependency or setup required.">Agent-less monitor</abbr>
+      &nbsp;&nbsp;<abbr title="Push uniform config or server-specific configs to HTTP end points, as long as there are HTTP (REST/SOAP) APIs to perform.">Configuration push</abbr>
+      &nbsp;&nbsp; <abbr title="Discover misconfigured servers from thousands of servers with HTTP APIs in no time.">Discover outliers</abbr>
+      &nbsp;&nbsp; <abbr title="Scalable multi-step HTTP operations to thousands of HTTP endpoints.">Orchestration</abbr>
+     <br/> 
+       <abbr title="1. Generic HTTP request: Any HTTP/HTTPS GET/POST/PUT/DELETE request. 2. Generic response aggregation: any user defined regular expression matching. 3 Generic server specific config push or request: generic variable replacement in request parameters or APIs. ">Generic</abbr>
+      &nbsp;&nbsp;    <abbr title="Hit and aggregate responses from 10,000+ servers within 1 minute from Commander running on a single server.">Scalablity</abbr>
+     &nbsp;&nbsp;&nbsp;<abbr title="It is totally free! Code under Apache 2.0 License. ">Open Source</abbr>
+     &nbsp;&nbsp; <abbr title="Response aggregation in tables. All responses are saved in standard json logs file for further analysis.">Visibility</abbr>
+     &nbsp;&nbsp; <abbr title="Zero installation required. Changing command/nodes with breeze. No database setup. Run locally in a single click. As a Play Framework project,  requiring only java preinstalled.">Agility</abbr>
+     <br/> 
+  
+    </p>	
+	 <p>
+            <a class="btn btn-primary btn-large" href="https://github.com/eBay/restcommander">
+              <i class="icon-github-sign"></i> View on GitHub
+            </a>
+            <span class="spacer"></span>
+
+	  
+       <a href="https://github.com/eBay/restcommander/archive/master.zip" class="btn btn-primary btn-large" ><i class="fa fa-download"></i> Download  <span class="version"> (<span>78 MB</span>) </span></a> 
+    </p>
+	  
+    <ul class="bs-docs-social-buttons">
+      <li>
+        <iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=ebay&repo=restcommander&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
+      </li>
+      <li>
+        <iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=ebay&repo=restcommander&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="102px" height="20px"></iframe>
+      </li>
+      <li class="follow-btn">
+        <a href="https://twitter.com/restcommander" class="twitter-follow-button" data-link-color="#0069D6" data-show-count="true">Follow @restcommander</a>
+      </li>
+
+      <li class="tweet-btn">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en"  data-url="&quot;rest commander&quot;" data-via="restcommander" >Tweet</a>
+        
+      </li>
+
+ <li >
+      <div class="g-plusone" data-size="medium"></div>
+  </li>
+  <li >
+   <div  class="fb-like" data-href="https://www.facebook.com/getrestcommander" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+ </li>
+
+    </ul>
+	
+
+
+	</div>
+</div>
+
+
+<a href="https://github.com/ebay/restcommander"  ><img style="position: absolute; top: 0; right: 0; border: 0;  z-index: 1032;" src="public/images/fork_me_in_git_banner970x210_img.png" alt="Fork me on GitHub"></a>
+
+
+
+
+
+<div class="bs-docs-social marketing">
+  <div class="container">
+ <div class="row-fluid">
+ <p>	<strong><a href="#a_introduction_video">Watch Demo!</a></strong> REST Commander has been <strong><a href="public/images/superman-8th-github-trending.png">ranked 8th</a></strong> in overall Github trending;  <strong><a href="http://www.infoq.com/cn/news/2014/03/ebay-released-rest-commander">reported</a></strong> at 
+  <a href="http://www.infoq.com/cn">InfoQ</a>;
+ <strong><a href="public/images/oschina-recommend.png">recommended</a></strong> and listed in <strong><a href="public/images/superman-top-20-oschina.png">top 20</a></strong> trending in 
+  <abbr title="the largest open source community in China"><a href="http://www.oschina.net/p/restsuperman">oschina</a></abbr>. 
+
+</p>
+ 
+ </div>
+   
+     <div class="row-fluid">
+ 
+      <div class="span4">
+        <h2><i class="fa fa-flash"></i> Scalable and Fast</h2>
+        <p>Utilizes <a href="http://akka.io">Akka</a> and <a href="https://github.com/AsyncHttpClient/async-http-client">Async HTTP Client</a> to maximize concurrency; Sends and aggregates responses from 10,000+ Servers within 1 minute.<sup class="superscript"><a href="#a_notes">*</a></sup> </p>
+      </div>
+      <div class="span4">
+        <h2><i class="fa fa-magic"></i> Powerful</h2>
+        <p>Sends uniform or different requests to same or different servers with near real-time reponse analysis or config pushes. Request level <a href="documentation.html#a_maxConcurrency">concurrency control</a> (throttling).</p>
+      </div>
+      <div class="span4">
+        
+       <h2><i class="fa fa-check"></i> Generic</h2>
+        <p>Generic <abbr title="Any HTTP/HTTPS GET/POST/PUT/DELETE request on any port with user-defined headers">HTTP</abbr> request. Generic response aggregation with user-defined regular expression matching. Generic variable replacement in request templates for server specific requests.</p>
+      </div>
+    </div>
+    
+    <div class="row-fluid">
+      
+        <div class="span4">
+        <h2><i class="fa fa-folder-open-o"></i> Ready to Use</h2>
+        <p>Agility. Zero installation required. Changing requests and target servers with breeze. No database or server setup. Run locally in a <a href="get-started.html#a_zero_installation">single click</a>. Require only Java preinstalled.</p>
+      </div>
+      <div class="span4">
+         <h2><i class="fa fa-user"></i> User Friendly</h2>
+        <p>Build in Java with <a href="http://www.playframework.com/documentation/1.2.4/home">Play Framework</a>, <a href="http://getbootstrap.com/2.3.2">Bootstrap</a> and its <a href="http://www.panopta.com/2013/02/06/bootstrap-application-wizard/">Application Wizard</a>, Commander enables sending requests in both easy-to-use web UI <a href="get-started.html#checkvi">wizards</a> and powerful <a href="usecase.html">REST APIs</a> (HTTP client as a service).</p>
+      </div>
+	
+	  <div class="span4">
+            <h2><i class="fa fa-home"></i> About </h2>
+ 		<p>Designed and built at <a href="http://www.ebay.com">eBay</a> by <a href="http://www.linkedin.com/in/peiyuant">Yuanteng (Jeff) Pei</a>, <a href="http://www.linkedin.com/in/thebyu">Bin Yu</a>, and <a href="http://www.linkedin.com/in/yangli907">Yang (Bruce) Li</a>, REST Commander helps managing one of the largest private cloud in the world.
+      </div>
+    </div>
+    
+      <br/><br/>
+  </div>
+</div>
+
+
+<div class="container marketing">
+  <br>
+ <div class="row-fluid">
+ <p>  
+
+ What's new? Check <a href="http://www.ebaytechblog.com/2014/03/11/rest-commander-scalable-web-server-management-and-monitoring#relatedwork">related work review</a> on efficient HTTP client and <a href="http://www.ebaytechblog.com/2014/03/11/rest-commander-scalable-web-server-management-and-monitoring#akka">concurrency and throttling model in Akka</a> at <a href="http://www.ebaytechblog.com/2014/03/11/rest-commander-scalable-web-server-management-and-monitoring"><strong>eBay tech blog</strong></a>.
+
+
+</p>
+ 
+ </div>
+    <div class="row-fluid">
+   
+   
+      <div class="span4">
+       
+        <h2> Monitor and Manage 10 - 10,000 Web Servers. </h2>
+         <p class="marketing-byline">What is REST Commander? It is a parallel async http client, like <a href="http://www.getpostman.com">Postman</a> at scale. </p>
+         
+		 <p class="marketing-byline">
+		 
+		 It is a scalable, high performance yet agile tool (HTTP client as a service) for managing, configing, and rescuing large amount of web servers.
+		 </p>
+		 
+		  <p class="marketing-byline">
+		 
+		 And <a href="usecase.html">many more</a> use cases... Whenever comes to sending multiple HTTP requests in parallel, federated data aggregation or scalable task executions on HTTP, <b>Think Commander First</b>.
+		 </p>
+      </div>
+      <div class="span8">
+         <br/>
+          <img src="public/images/workflow_v3.png"/> 
+      </div>
+    
+    </div>
+
+
+
+  </div>
+
+
+<br/>
+<div class="bs-docs-social marketing">
+  <div class="container"><a name="a_introduction_video"></a>
+    <h2>Web Server Management Work Flows. Check <a href="monitoring-sample.html">Sample Code</a></h2>
+    <div class="row-fluid">
+      <div class="span6">
+        
+
+        <h2><i class="fa fa-search"></i>  Monitor Web Servers</h2>
+        <p>Are you a company who has 10-10,000 web servers (e.g. tomcat, nginx, etc.) running; and want to check every minute which servers are slow or misconfigured?  Commander can get this done for you in an hour: Check the <a href="monitoring-sample.html">sample code</a>. Just put it into <a href="http://www.adminschoice.com/crontab-quick-reference/">crontab</a> and you are done. Simple poll mode without costly infrustructure setup.</p>
+       
+      </div>
+      
+      <div class="span6">
+        
+          <h2><i class="fa fa-cogs"></i> Config Push to Web Servers</h2>
+        <p>If your servers use REST/SOAP APIs to update its config and you want to enforce server-specific or uniform config on demand or with auto-remediation. Commander is your perfect choice. Then a work flow of monitor and rescue: (1) obtained unhealthy servers by monitoring; (2) rescue or restart them by config push APIs.</p>
+
+       
+      </div>
+    </div>
+     
+      
+  
+  </div>
+</div>
+
+
+<div class="container marketing">
+
+ <br/><br/>
+    <div class="row-fluid">
+   
+     
+      <div class="span6">
+        <iframe width="480" height="360" src="http://www.youtube.com/embed/13rOXCX2dt8" frameborder="0" allowfullscreen></iframe>
+      </div>
+    
+	 <div class="span6">
+       
+        <h2><a href="get-started.html">Try Commander Now!</a>  </h2>
+        
+          <p class="marketing-byline">Follow the video<sup class="superscript"><a href="#a_notes">**</a></sup> to see how easy to run Commander and hit top 100 websites in 3 seconds and 3 sample websites for monitoring, aggregating their HTTP responses.</p>
+          
+           
+		   
+		   <p class="marketing-byline">Commander is powerful to send (1) the same request to different servers; (2) different requests to different servers; (3) different requests to the same server. </p>
+		  
+ <p class="marketing-byline">Why we need them? Check out these <a href="usecase.html">live examples</a> on (1) <a href="usecase.html#usecase-same-request">monitor websites</a>; (2) <a href="usecase.html#usecase-different-servers">poll job status</a> (3) <a href="usecase.html#usecase-different-requests">call the same weather WSDL web service with different zip codes</a>.</p>
+		   		  
+		 
+      </div>
+    </div>
+
+ <br/><br/>
+
+  </div>
+
+
+
+<div class="bs-docs-social marketing">
+  <div class="container">
+   <br/><br/>
+    <div class="row-fluid">
+      <div class="span4">
+        
+          <h2><i class="fa fa-search"></i> Agent-less Monitoring</h2>
+        <p>Quickly check any HTTP results from an ad hoc list of servers with generic response aggregation by regular expression matching. FAST: No dependency or setup required.</p>
+      </div>
+      <div class="span4">
+        
+        <h2><i class="fa fa-cogs"></i> Config Pushes</h2>
+        <p>Push uniform config or server-specific configs to HTTP end points, as long as there are HTTP (REST/SOAP) APIs to perform.</p>
+      </div>
+      <div class="span4">
+        
+        <h2><i class="fa fa-th"></i> N Requests to 1 Target</h2>
+        <p>Concurrently fire a large number of different requests to a single target server. E.g. look up thousands of jobs status in a server. Concurrency control to accommodate server capacity.</p>
+       
+      </div>
+    </div>
+     
+    <br/>
+      
+      
+   <div class="row-fluid">
+      <div class="span4">
+        
+        <h2><i class="fa fa-list-ol"></i> IT Orchestration</h2>
+        <p>Scalable multi-step HTTP work flows to thousands of HTTP endpoints. Federated data aggregation. Scalable task executions.</p>
+      </div>
+      <div class="span4">
+          <h2><i class="fa fa-bug"></i> Discover Outliers</h2>
+       <p>Discover misconfigured servers from thousands of servers with http APIs in no time.</p>
+      </div>
+      <div class="span4">
+       <h2><i class="fa fa-wrench"></i> Auto-Remediation</h2>
+       <p>If your config change requests are idempotent, Commander can easily ensure correct config by scheduled config pushes.</p>
+      </div>
+    </div>
+      <br/><br/>
+  </div>
+
+
+   <div class="row-fluid">
+      <div class="span12">
+        
+       
+        <p style="font-size: 0.85em"><a name="a_notes"></a>
+       
+        * Actual performance may vary based on network speed, the slowest servers and Commander <a href="documentation.html#timeout">timeout</a>  settings. In our test, for 10,000 servers in across regions, 99.8% responses received by 33 seconds and 100% by 50 seconds.
+          <br>
+          ** The background music in the video is from Dan-O at <a href="http://danosongs.com">http://danosongs.com</a>.
+        </p>
+      </div>
+      
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Footer
+    ================================================== -->
+    <footer class="footer">
+
+      <div class="container">
+
+        <p>Code licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a>, documentation and video under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+    <!-- Start of StatCounter Code for Default Guide -->
+ 
+<script type="text/javascript">
+var sc_project=9543227; 
+var sc_invisible=0; 
+var sc_security="1ab09d11"; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="hits counter"
+href="http://statcounter.com/free-hit-counter/"
+target="_blank"><img class="statcounter"
+src="http://c.statcounter.com/9543227/0/1ab09d11/0/"
+alt="hits counter"></a></div></noscript>
+<!-- End of StatCounter Code for Default Guide -->
+
+
+</p>
+
+      </div>
+
+       <p>&copy; 2013-2014  <a href="http://ebayopensource.github.io/">eBay Software Foundation</a></p>
+    </footer>
+ <script type="text/javascript" src="public/javascripts/widgets.js"></script>
+
+<!-- Place this tag after the last +1 button tag. -->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/platform.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-23260647-3', 'restcommander.com');
+  ga('send', 'pageview');
+
+</script>
+
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+</body>
+</html>
+

@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>REST Commander - Parallel Async HTTP Client as a Service, Speaks HTTP at Scale (Formerly known as REST Superman) </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="REST Commander - Parallel Async HTTP client ; fast http client, AKKA, Play framework; eBay Opensource.(Formerly known as REST Superman)  ">
+    <meta name="author" content="eBay Software Foundation">
+    
+    <!-- Le styles -->
+    
+	
+    <link href="public/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="public/stylesheets/font-awesome.min.css" rel="stylesheet">    
+    <link href="public/stylesheets/bootstrap-responsive.min.css" rel="stylesheet">
+	  <link href="public/stylesheets/docs.css" rel="stylesheet">
+	
+	 <!-- Prettify styles
+  	<link href="public/stylesheets/sunburst.css" rel="stylesheet">
+  	<link href="public/javascripts/prettify/prettify.css" rel="stylesheet">
+	  -->
+	 <link href="public/javascripts/prettify/prettify.css" rel="stylesheet">
+
+	  <link rel="shortcut icon" href="public/images/ico/favicon.ico">
+    
+	    
+    
+  </head>
+
+  <body>
+  
+  
+  <body data-spy="scroll"  data-target=".bs-docs-sidebar"  onload="prettyPrint()">
+
+
+
+
+
+<div class="navbar navbar-fixed-top navbar-inverse">
+	<div class="navbar-inner">
+			<a class="brand" href="index.html">Commander</a>
+		<div class="container">
+		
+			<div class="nav-collapse">
+				<ul class="nav">
+					
+          <li><a href="index.html">Home</a></li>
+          <li><a href="get-started.html">Get Started</a></li>
+          <li class="active"><a href="documentation.html">Documentation</a></li>
+          <li><a href="usecase.html">Use Cases</a></li>
+          <li><a href="monitoring-sample.html">Monitoring Sample</a></li>
+          <li><a href="contact.html">Contact</a></li>       
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Subhead
+================================================== -->
+<header class="jumbotron subhead" id="overview">
+  <div class="container">
+    <h1>Documentation</h1>
+    <p class="lead">File structures, notations, wizards, response analysis, configuring HTTP requests, target servers, aggregation rules, logs and many more.</p>
+  </div>
+</header>
+
+
+
+  <div class="container-fluid">
+
+
+    <!-- Docs nav
+    ================================================== -->
+    <div class="row-fluid">
+      <div class="span3 bs-docs-sidebar" >
+        <ul class="nav nav-list bs-docs-sidenav"  data-spy="affix" data-offset-top="200">
+          <li><a href="#overview"><i class="icon-chevron-right"></i>Overview</a></li>
+          <li><a href="#file-structure"><i class="icon-chevron-right"></i>File Structure</a></li>
+
+          
+          <li><a href="#Commands"><i class="icon-chevron-right"></i>Commands</a></li>
+           <li><a href="#Nodes"><i class="icon-chevron-right"></i>Nodes</a></li>
+
+          <li><a href="#Aggregation"><i class="icon-chevron-right"></i>Aggregation</a></li> 
+          
+           <li><a href="#timeout"><i class="icon-chevron-right"></i>Timeout Settings</a></li>
+           <li><a href="#Wizards"><i class="icon-chevron-right"></i>Wizards</a></li>                  
+           
+           
+           <li><a href="#Response-Persistence"><i class="icon-chevron-right"></i>Response Analysis and Logs</a></li>       
+           <li><a href="#cron"><i class="icon-chevron-right"></i>Scheduled (Cron) Jobs</a></li>        
+         
+           <li><a href="#Advanced-Configs"><i class="icon-chevron-right"></i>Advance Settings</a></li>       
+           <li><a href="#rest"><i class="icon-chevron-right"></i>REST APIs and REST Client</a></li>    
+           <li><a href="#production"><i class="icon-chevron-right"></i>Production Mode</a></li>         
+        </ul>
+      </div>
+      <div class="span9">
+
+
+        <section id="overview">
+          <div class="page-header">
+            <h1>1. Overview</h1>
+          </div>
+          <p class="lead">REST Commander is a parallel async http client as a service. It is scalable, fast, and able to conduct generic response aggregation and variable based replacement in requests.
+
+           Commander can run commands via step by step wizard UI or powerful REST APIs
+           Commander leverages the following libraries.
+
+           If you are new to HTTP or RESTful/SOAP web service, here is a <a href="http://net.tutsplus.com/tutorials/other/a-beginners-introduction-to-http-and-rest/">beginner's guide</a>.
+
+
+
+
+          </p>
+
+
+          <div class="row-fluid">
+
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Library</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a href="http://www.playframework.com/documentation/1.2.4/home">Play Framework</a> 1.2.4</td>
+                    <td>A Java MVC Framework with high performance netty based web server.</td>
+                  </tr>
+                  <tr>
+                    <td><a href="http://akka.io">AKKA</a> (in Java)</td>
+                    <td>Actor Model Framework for simplifying thread pool management. Here we use it for sending parallel HTTP requests, aggregate and extract responses.</td>
+                  </tr>
+                  <tr>
+                    <td><a href="https://github.com/AsyncHttpClient/async-http-client">Async HTTP Client</a>  (NING)</td>
+                    <td>Asynchronus HTTP Client.</td>
+                  </tr>
+                   <tr>
+                    <td><a href="http://getbootstrap.com/2.3.2/">Bootstrap</a> 2.3</td>
+                    <td>Opensource CSS and frontend library.</td>
+                  </tr>                 
+                </tbody>
+            </table>
+
+          </div>
+
+
+        <h2>1.1 Notations<a name="a_notation_table"></a></h2>
+
+
+
+<div class="alert alert-success">
+<p><strong>Important!</strong>: Please read this notation table before proceeding. Note that you can edit these configs both offline and online (while Commander is running).
+</p>
+  
+</div>
+
+          <p class="lead">Click this buttons in the middle of the "Home" page of Commander to start editing.
+          </p>
+
+   <img src="public/images/EditConfigButtonsInHomepage.jpg"/><br/>
+   <br/>
+          <p class="lead">Notation Table
+
+
+
+          </p>
+
+          <div class="row-fluid">
+
+
+          <table class="table table-striped table-hover">
+                    <thead>
+                      <tr>
+                        <th>Notation</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>Command</strong></td>
+                        <td>A http request: have which port, URL, http header, if a post, what is the post content. A command can have the concrete payload or just a template with some parts as a variable. Then a replacement of the variable is possible when we need to send different actually http requests using the same "command template" when replacing the variable with different values. Commands are defined in a very simple format in agentcommand.conf </td>
+                      </tr>
+                      <tr>
+                         <td><strong>Node / Node Group</strong></td>
+                        <td>A node is normally a target server. Commander normally sends requests to multiple nodes, which is a node group. When sending to  the same server, the node becomes a string that replaces the defined variable in command.  Pre-define Nodes are defined in a very simple format in nodegroup.conf</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Aggregation or Aggregation Rule</strong></td>
+                        <td>Normally means the regular expression. 
+
+                          Why need this? When you get 1000 responses back, each response may be huge. But you are just interested in a specific value. Since each response is just a string, we use regular expression to generically extract the needed values out.
+                          Aggregations are defined in a very simple format in aggregation.conf. Just an id and then the regular expression.</td>
+                      </tr>
+
+                      <tr>
+                        <td><strong>HTTP Header Type</strong></td>
+                        <td>Http header type is a unique key string associated with a set of key, value pairs of http header values. Each command is associated with some HTTP header type. It is defined in httpheader.conf </td>
+                      </tr>                      
+                    
+                    </tbody>
+                </table>
+
+          </div>
+
+
+        </section>
+
+
+
+        <!-- File structure
+        ================================================== -->
+        <section id="file-structure">
+          <div class="page-header">
+            <h1>2. File structure</h1>
+          </div>
+          <p class="lead">Commander source code are under the AgentMaster folder.</p>
+         
+<pre class="prettyprint  lang-cpp linenums">
+.
+├── AgentMaster
+│   ├── adhoc_components
+│   ├── app
+│   ├── app_logs
+│   ├── app_logs_adhoc
+│   ├── app_logs_none_standard
+│   ├── conf
+│   ├── dev_notes
+│   ├── lib
+│   ├── public
+│   └── test
+├── clean_application_pid_after_run_win.bat
+├── eclipsify_application_win.bat
+├── play-1.2.4  
+├── README.md
+├── start_application_linux.sh
+└── start_application_win.bat
+</pre>
+
+<p class="lead">In Configuration directory(/conf), the folder content looks as below. As Commander does not use database, the key configuration files are stored in this folder. All these configs can be changed offline or online with the edit config buttons in the Commander front page.
+</p>
+<pre class="prettyprint lang-java linenums">
+├── conf
+│   ├── actorconfig.conf
+│   ├── agentcommand.conf
+│   ├── aggregation.conf
+│   ├── application.conf
+│   ├── dependencies.yml
+│   ├── httpheader.conf
+│   ├── log4j.properties.production
+│   ├── messages
+│   ├── nodegroup.conf
+│   ├── notes.conf
+│   ├── routes
+│   └── wisbvar.conf
+</pre>
+
+<div class="alert alert-success">
+<p><strong>Important!</strong>: Read this key config table about these key configuration files before moving on. </p>
+</div>
+
+<p class="lead">Table of the Key Config Files.
+</p>
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Config File Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                   <tr>
+                        <td>agentcommand.conf</td>
+                        <td>The list of pre-defined commands are defined here. Each command (HTTP request) will have a http header. Some variable can be defined in this conf too.</td>
+                    </tr>
+                   <tr>
+                        <td>nodegroup.conf</td>
+                        <td>The list of pre-defined node groups (target http servers) are defined here. The format is pretty straight forward </td>
+                    </tr>
+
+                   <tr>
+                        <td>aggregation.conf</td>
+                        <td>The list of pre-defined regular expressions for extracting strings. When mutliple repsonses come back, each response is basically a large string. We want to use the regular expression to extract the specific part that we are interested in. </td>
+                    </tr>
+                   <tr>
+                        <td>httpheader.conf</td>
+                        <td>The list of pre-defined http header types are defined here. Each http header type is with a set of htttp headers. Each command must associate with an HTTP header type. </td>
+                    </tr>
+                   <tr>
+                        <td>application.conf</td>
+                        <td>The key config in a play framework project. Also includes the parameters specific to REST Commander, such as the timeout and default max concurrency settings. Details please check <a href="http://www.playframework.com/documentation/1.2.4/configuration">here</a>. </td>
+                    </tr>                    
+                   <tr>
+                        <td>routes</td>
+                        <td>The dispatcher in the MVC framework by Play. Which API to hit which controller. </td>
+                    </tr>    
+                   <tr>
+                        <td>actorconfig.conf</td>
+                        <td>The config of AKKA actors settings. </td>
+                    </tr>                                                                                                                                        
+                </tbody>
+            </table>
+         
+        </section>
+
+
+        <section id="Commands">
+          <div class="page-header">
+            <h1>3. Commands<a name="a_Commands"></a></h1>
+            <p class="lead">In Commander, the http request is called a "command". All commands are defined in "agentCommand.conf". It has a following structure. Defining a command is very simple. 2 lines define a command. 
+            </p>            
+          </div>
+
+ <p class="lead">The Commands Page Sample:
+ 
+            </p>
+<img src="public/images/Commands.jpg"/>
+
+
+<br/></br/><br/></br/>
+
+           <div class="row-fluid">
+              <h2>3.1 Command Structure </h2>
+            <p class="lead">We always have to use exactly two lines to define a new command. The 1st line format: commandID httpmethod requestProtocol requestPort requestUrlPostfix maxConcurrency responseExtractIndexStart responseExtractIndexEnd
+            </p>
+
+
+
+
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                <th>Parameter Name</th>
+                <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Command ID</td>
+                  <td>The ID that uniquely identify this command in the system. Must be unique: use it as the key to save in the hashmap in memory.</td>
+                </tr>
+                <tr>
+                  <td>Http Method</td>
+                  <td>GET/POST/PUT/DELETE. </td>
+                </tr>
+                <tr>
+                  <td>Http Protocol</td>
+                  <td>http or https</td>
+                </tr>
+                <tr>
+                  <td>Connection Port</td>
+                  <td>which port? normally it is 80 for comment. Internally can be any port, such as 8080, 9000, dependent on your target server.</td>
+                </tr>
+                <tr>
+                  <td>URL Postfix</td>
+                  <td> the url part after  hostname:port.  e.g. : www.ebay.com:80/index.html , the URL-Suffix is "/index.html".
+                  There is a special UrlPostfix of <strong>"$NULL_URL"</strong>, where you just want to hit http://node:port (like the front page) .
+                  </td>
+                </tr>
+                <tr>
+                  <td>Max Concurrency<a name="a_maxConcurrency"></a></td>
+                  <td> It indicates what is the maximum concurrent requests the Commander will perform. i.e., If this value is 100, that means Commander will not send the "n_th" request until it gets the "{n-100}_th" response back. This helps to protect the target server when Commander is sending to the same target server; and also protects the machine running Commander from too much IO and socket load.
+                    If this value is 0 or negative: will use the default value of 1500 (defined as MAX_CONCURRENT_SEND_SIZE in application.conf
+                  </td>
+                </tr>
+                <tr>
+                  <td>Extract From</td>
+                  <td>When response is too large, may just extract some part of it. e.g. the first 2KB [from:0, to:2000).  When extract from and to are both -1: will extract the whole response. For example the GET_FRONT_PAGE command, just save back the first 5000 Bytes from each response</td>
+                </tr>
+                <tr>
+                  <td>Extract To</td>
+                  <td>When extract from and to are both -1: will extract the whole response.</td>
+                </tr>
+                 <tr>
+                  <td>HTTP Header Type</td>
+                  <td>The http header type (id) for this command. Will load the set of http headers defined in the httpheader.conf. Refer to the http header part. </td>
+                </tr>
+              </tbody>
+            </table>
+
+
+            <div class="alert alert-success">
+            <p><strong>Attention!</strong>: The <strong>maxConcurrency</strong> is a key parameter in the command. It indicates what is the maximum concurrent requests the Commander will perform. i.e., If this value is 100, that means Commander will not send the "n_th" request until it gets the "{n-100}_th" response back. e.g. The 500th request will not be sent until receiving the reponse from the 400th request. This helps to protect the target server when Commander is sending to the same target server; and also protects the machine running Commander from too much IO and socket load. If this value is 0 or negative: will use the default value of 1500 (defined as MAX_CONCURRENT_SEND_SIZE in application.conf</p>
+            </div>
+
+            <p class="lead">The 2nd line is the request body (data) when it is a POST or PUT. When you dont need the request body just put "$AM_FULL_CONTENT" (like a place holder).  the ``` in the beginning of this line is just for formatting purpose; no real meaning.
+            </p>
+
+
+            <p class="lead"> Two sample commands are defined here. First command is a GET to /act/index.rss. The 2nd command is a POST call to a SOAP based Web service (a public WSDL on weather). Note that $APIVARREPLACE_ZIP_VAR is the variable to be replaced. <strong>To protect the public weather service server, the maxConcurrency is set as 20. Please be careful of setting this value and protect public service or you may be banned by the server.</strong>
+            </p>
+
+<div class="alert alert-block">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <Strong>Warning!</strong> The variables can be in either the 1st or tne 2nd line of the command (both url postfix and the POST body). All variables must follow this convention: Starts with the prefix of "$APIVARREPLACE_" . There is a special UrlPostfix of "$NULL_URL", where you just want to hit http://node:port . 
+</div>
+          
+
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">GET_CRAIGSLIST_RSS GET http 80 /act/index.rss 0 0 5000 SUPERMAN_GLOBAL <span style="color: #007700">&lt;td&gt;</span>
+```$AM_FULL_CONTENT 
+
+%Call public WSDL web service; POST a SOAP (XML) object where the variable is the ZIP code
+GET_PUBLIC_WEATHER_APIVARREPLACE POST http 80 /WeatherWS/Weather.asmx 20 -1 -1 HEADER_PUBLIC_WEATHER
+```<span style="color: #007700">&lt;soapenv:Envelope</span> <span style="color: #0000CC">xmlns:soapenv=</span><span style="background-color: #fff0f0">&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;</span> <span style="color: #0000CC">xmlns:weat=</span><span style="background-color: #fff0f0">&quot;http://ws.cdyne.com/WeatherWS/&quot;</span><span style="color: #007700">&gt;&lt;soapenv:Header/&gt;&lt;soapenv:Body&gt;&lt;weat:GetCityWeatherByZIP&gt;&lt;weat:ZIP&gt;</span>$APIVARREPLACE_ZIP_VAR<span style="color: #007700">&lt;/weat:ZIP&gt;&lt;/weat:GetCityWeatherByZIP&gt;&lt;/soapenv:Body&gt;&lt;/soapenv:Envelope&gt;</span>
+</pre></div>
+
+
+<br/><br/>
+
+<div class="alert alert-success">
+<p><strong>Attention!</strong>: There are two types of variable replacement in commands. In form of $VAR and ${VAR}.  $VAR is more important and a must to send different requests for different servers. While ${VAR} is optional to reduce multiple definition.  </p>
+</div>
+
+
+
+
+          <p class="lead"> Table of Comparing $VAR vs ${VAR}   </p>    
+
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                <th>Replacement Form</th>
+                <th>When</th>
+                <th>Motivation</th>
+                 <th>Function</th>
+                 <th>Location to Define the Replacement String to the Var</th>
+                
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr>
+                  <td>$VAR, with prefix: "$APIVARREPLACE_" </td>
+                  <td>${VAR} will be replaced in the last minute before sending out the request for enabling sending different requests to different servers. 
+                  </td>
+                   <td>This is a key feature! Used for run time replacement, a must for enabling sending different requests to different servers. </td>
+                   <td>used for run time replacement: support both uniform replacement or server specific replacement. (different values for different nodes)</td>
+                    <td>(1) in the REST API: replacement map;  (2) in the single server wizard; (3) in the code or rest client to Commander.</td>
+                </tr>                
+                <tr>
+                  <td>${VAR}</td>
+                  <td>${VAR} will be replaced at the time when this agentcommand.conf is loaded (normally during startup of application or a reload trigger)
+                  </td>
+                  <td> This is optional. Goal is to make the definition in the agentcommand.conf looks nicer to reduce potential multiple same changes (like to remove magic numbers in the code) . Say when a value e.g. some software version appear in multiple commands, use this ${var} to define it in a single place. </td>
+                   <td>uniform replacement only</td>
+                    <td>in agentcommand.conf</td>
+                </tr>
+               
+             
+              
+              </tbody>
+            </table>
+
+  <p class="lead"> The Section in agentcommand.conf for defining ${VAR}: optional   </p>             
+<pre class="prettyprint  lang-cpp linenums">
+%VARIABLES here are with ${VAR} will be first replaced here globally inside of this .conf file.
+VARIABLES_PREDEFINED
+```VARIABLES_PREDEFINED_LIST_START
+${URL_VI}=/validateInternals.html
+```VARIABLES_PREDEFINED_LIST_END
+</pre>
+
+
+        </div>
+       
+        
+<br/>
+          <div class="row-fluid">
+              <h2>3.2 Edit/Add Http Headers</h2>
+   <p class="lead"> You may go to http://localhost:9000/config/editConfig/httpheader to edit the http header or just edit the httpheader.conf. In the example, the id is HEADER_PUBLIC_WEATHER,  then the "```HTTP_HEADER_LIST_START" and "```HTTP_HEADER_LIST_END" tags; between these two are a list of http header key value pairs. Each key value pair uses two lines. And the 2nd line (which is the value) use the formatting string "```" (no meaning).
+</p>
+              <pre class="prettyprint lang-java linenums">
+HEADER_PUBLIC_WEATHER
+```HTTP_HEADER_LIST_START
+content-type
+```text/xml;charset=UTF-8
+```HTTP_HEADER_LIST_END
+</pre>       
+
+
+          </div>
+          
+        </section>
+
+
+        <section id="Nodes">
+          <div class="page-header">
+            <h1>4. Nodes</h1>
+            <p class="lead">In Commander, the target server is called a "node". a "node group" is a set of target servers. We can fire commands to an ad hoc list of nodes or some pre-defined node groups. The pre-defined node groups are defined in nodegroup.conf. If you want to hit target nodes not pre-defined, you may leverage the rest APIs or the ad hoc command wizard; Or even extend the code to read from a centralized database or from an API (e.g. from a web url given a list of string in json).
+</p>
+          </div>
+        
+ <p class="lead">The Node Page Sample: You can click the ID to get the json view and click on the <i class="fa fa-download fa-lg"></i> button to get the domain name (FQDN) text line by line.
+ 
+            </p>
+<img src="public/images/Nodes.jpg"/>
+
+
+<br/></br/><br/></br/>
+
+          <div class="row-fluid">
+              <h2>4.1 Sample Pre-defined Node Group </h2>
+  <p class="lead"> In the example, the type is ADHOC. The id is ADHOC_NODE_LIST_CRAIGLIST,  then the "```ADHOC_NODE_LIST_START" and "```ADHOC_NODE_LIST_END" tags; betwen these two are a list of nodes.  
+    (Advanced feature for extension: you may add new data source type and dynamic loading nodes from a centralized databases or an API.)
+</p>
+              <pre class="prettyprint lang-java linenums">
+ADHOC ADHOC_NODE_LIST_CRAIGLIST NA NA
+```ADHOC_NODE_LIST_START
+sfbay.craigslist.org
+sandiego.craigslist.org
+losangeles.craigslist.org
+lansing.craigslist.org
+chicago.craigslist.org
+detroit.craigslist.org
+annarbor.craigslist.org
+newyork.craigslist.org
+saltlakecity.craigslist.org
+raleigh.craigslist.org
+phoenix.craigslist.org
+boston.craigslist.org
+houston.craigslist.org
+pittsburgh.craigslist.org
+honolulu.craigslist.org
+```ADHOC_NODE_LIST_END       
+</pre>              
+          
+          </div>
+
+                   
+        </section>      
+
+
+
+
+        <section id="Aggregation">
+          <div class="page-header">
+            <h1>5. Aggregation</h1>
+            <p class="lead">In Commander, the aggregation rules are used to extract the needed values out of the responses. They are just regular expressions (regex in short). The pre-defined aggregation rules are defined in aggregation.conf. New to regular expressions? Check the <a href="http://www.zytrax.com/tech/web/regex.htm">tutorial</a> and <a href="http://www.cheatography.com/davechild/cheat-sheets/regular-expressions/">cheatsheet</a>.
+</p>
+
+<div class="alert alert-success">
+<p><strong>Speical Aggregation Rules.</strong>: There are two special aggregation rules that does not come from the payload of the response: 
+  (1) <strong>SUPERMAN_SPECIAL_STATUS_CODE</strong> : aggregation on the HTTP response code. (2) <strong>SUPERMAN_SPECIAL_RESPONSE_TIME</strong>: aggregation on the response obtained time.  The SUPERMAN_SPECIAL_STATUS_CODE is used as the <strong>default</strong> aggregation rule. </p>
+</div>
+
+          </div>
+        
+
+          <div class="row-fluid">
+              <h2>5.1 Aggregation Sample </h2>
+  <p class="lead"> In the example, two aggregation rules are defined. Each rule needs two lines. The first line is the ID, and the second line is the regular expression starts with the formatting string "```" (no meaning).  The () indicates the part of string to be extracted. E.g. In the first rule is the part between the temperature.  
+</p> 
+
+<div class="alert alert-success">
+<p><strong>Tip</strong>: The () indicates the part of string to be extracted.</p>
+</div>
+
+
+
+
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">PATTERN_WEATHER_WSDL_TEMPERATURE 
+```.*<span style="color: #007700">&lt;Temperature&gt;</span>(.*?)<span style="color: #007700">&lt;/Temperature&gt;</span>.*
+
+PATTERN_VI_SERVER_HEALTH
+```.*<span style="color: #007700">&lt;td&gt;</span>Server-Is-Healthy<span style="color: #007700">&lt;/td&gt;</span>\s*<span style="color: #007700">&lt;td&gt;</span>(.*?)<span style="color: #007700">&lt;/td&gt;</span>[\s\S]*
+</pre></div>
+
+  
+          </div>
+
+                   
+        </section>      
+
+
+
+        <section id="timeout">
+          <div class="page-header">
+            <h1>6. Timeout Settings</h1>
+            <p class="lead">The timeout is a key value in any http requests and impact the performance. Check the bottom of <strong>application.conf</strong>  to set them. Many times the performance is mostly impacted by the slowest servers and the stuck or dead ones with the timeout during the batch. We have levels of timeout of individual http request as in NING Async http client, and also at the actor level. (If the http client does not throw any error; it still can get stuck in rare occasions.)
+</p>
+            <p class="lead">We define two HTTP client, a fast client (default) and a slow client, any commend has a postfix of "SLOWNINGCLIENT" in command ID will auto use the slow client in the http requests. 
+</p>
+
+<div class="alert alert-success">
+<p><strong>Timeout is important!</strong>: Many times the performance is mostly impacted by the slowest servers and the stuck or dead ones with the timeout during the batch. Where to set timeout? in <strong>application.conf</strong>.</p>
+</div>
+
+
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Timeout </th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                
+                   <tr>
+                        <td>NING_FASTCLIENT_REQUEST_TIMEOUT_MS</td>
+                        <td>The default request timeout. Not just the connection. If the target server is CPU 100% probably the connection will succeed, but then got stuck. Currently: 15000 (milliseconds)</td>
+                    </tr>
+                   <tr>
+                        <td>NING_FASTCLIENT_CONNECTION_TIMEOUT_MS</td>
+                        <td>Time needed to connect with the server. Normally 1-2 second is sufficient. Currently: 4000 (milliseconds)</td>
+                    </tr>
+
+                   <tr>
+                        <td>NING_SLOWCLIENT_REQUEST_TIMEOUT_MS</td>
+                        <td>For the slow client. (commands by default will not use slow client)  Currently: 120000 (milliseconds)</td>
+                    </tr>
+                   <tr>
+                        <td>NING_SLOWCLIENT_CONNECTION_TIMEOUT_MS</td>
+                        <td>For the slow client. (commands by default will not use slow client) Currently: 15000 (milliseconds)</td>
+                    </tr>
+
+                     <tr>
+                        <td>ACTOR_MAX_OPERATION_TIME_SECONDS_DEFAULT</td>
+                        <td>This timeout is when the async HTTP client (Ning) library does not throw exception but it still gets stuck. It should be set longer than the request timeout. Currently:  17 </td>
+                    </tr>
+
+                                                                       
+                </tbody>
+            </table>
+          </div>
+                          
+        </section>        
+
+
+         <section id="Wizards">
+          <div class="page-header">
+            <h1>7. Wizards</h1>
+            <p class="lead">In Commander, the wizards are great ways to add new user friendly UI to step by step to on demand fire requests to target servers. To access the wizards, check on the "Wizards" tab to view all available wizards: http://localhost:9000/wizards . 
+            </p>
+
+
+
+     <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Timeout </th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                   <tr>
+                        <td>Command to adhoc nodes</td>
+                        <td>With ad hoc node list. Wizard for running pre-defined command to arbitrary new target nodes.</td>
+                    </tr>
+                   <tr>
+                        <td>Command to a single server</td>
+                        <td>With ad hoc String list. Wizard for running pre-defined command to a single server with arbitrary set of strings to replace a single variable in the command.</td>
+                    </tr>
+
+                   <tr>
+                        <td>Command to Pre-defined Node Group</td>
+                        <td>Wizard for any commands to predefined node groups.</td>
+                    </tr>
+                                                                       
+                </tbody>
+            </table>
+            
+            <p class="lead"> For the sample steps for the pre-defined node groups, it is available in the video and the <a href="get-started.html#checkvi">Check 3 Servers Health</a> example in "Get Started" page. Here we show a more complex wizard example when we need to send different requests to a single server.   This corresponding to the use cases of <a href="usecase.html#usecase-different-requests">Different Requests to Same Server</a> in Use Cases page.
+            </p>
+
+
+ <p class="lead"> 1. Input the list of values to replace the variable defined in the command. 95131, 95132, 95037, 48824, 48823
+</p>
+<img src="public/images/SingleServerWizard1.jpg"/><br/>
+
+ <p class="lead"> 2. Input the command, the variable name, and the single target server. Here we replace the APIVARREPLACE_ZIP_VAR with the 5 zip codes. And the single target server is "wsf.cdyne.com".
+</p>
+<img src="public/images/SingleServerWizard2.jpg"/><br/>
+
+ <p class="lead"> 3. Send requests.
+</p>
+<img src="public/images/SingleServerWizard3.jpg"/><br/>
+
+ <p class="lead"> 4. After a couple of seconds, the responses return. The "Response data" show the raw JSON responses. "Aggregation" gives the table based view of aggregation with regex; "Aggregation in text" gives the text based view of aggregation with regex. Now the responses are not only in the memory but also saved as text json log files in the disk. You may view the "Response logs" to view them too.
+</p>
+<img src="public/images/SingleServerWizard5a.jpg"/><br/>
+
+
+
+ <p class="lead"> 5. You may continue to check on the next section of "Response Analysis and Logs" to continue to view the responses aggregation and logs with this example.
+</p>
+
+          </div>
+                  
+        </section>   
+
+
+       <section id="Response-Persistence">
+          <div class="page-header">
+            <h1>8. Response Analysis and Logs</h1>
+            <p class="lead"> 
+
+
+
+              Logs: For each command, when the responses from the target nodes come back, the request and response pair for all nodes are automatically stored in (1) a hashmap in memory; (2)  json text files for further investigations. You can click them to (1) Download: view the raw json. or (2) Aggregation using a regular expression in either html table or raw text
+           
+
+            </p>
+          </div>
+
+ <p class="lead">  You can check logs on the pre-defined node group is via http://commanderhost/logs; while for the ad hoc node group is via url http://commanderhost/logs/adhocLog. Here is a screenshot of the adhoc log page.
+</p>
+<img src="public/images/logsAdhoc.jpg"/><br/>
+<br/>
+ <p class="lead">  The Icon buttons have the following functions.
+</p>
+     <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Icon </th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                   <tr>
+                        <td><i class="fa fa-download fa-lg"></i></td>
+                        <td>Download the raw json logs of the hashmap of the request and response pairs. (not using regular expression aggregation rules).</td>
+                    </tr>
+                   <tr>
+                        <td><i class="fa fa-picture-o fa-lg"></i></td>
+                        <td> Show the aggregation tables: which nodes have which values. You may (1) easily change the aggregation rule; (2) click on the column of "Node List" to obtain the corresponding list of nodes that share the extracted string. </td>
+                    </tr>
+
+                   <tr>
+                        <td><i class="fa fa-list fa-lg"></i></td>
+                        <td> The text / json version of the aggregation after using the aggregation rule (regular expression) Default regular expression is :<strong>SUPERMAN_SPECIAL_STATUS_CODE</strong>. Note that this is URL addressable. So you can change the URL to change the regular expression.</td>
+                    </tr>
+                                                                       
+                </tbody>
+            </table>
+<br/>
+
+<br/>
+ <p class="lead">1. Click <i class="fa fa-download fa-lg"></i> give you the raw data. 
+</p>
+<img src="public/images/logs1.jpg"/><br/>
+<br/>
+<br/>
+ <p class="lead">2. Click <i class="fa fa-picture-o fa-lg"></i> give you the table view after the regular expression aggregation 
+</p>
+<img src="public/images/SingleServerWizard5.jpg"/><br/>
+<br/>
+
+ <p class="lead">
+</p>
+
+<div class="alert alert-success">
+<p><strong>Tip</strong>: You may change the aggregation rule (regular expression) by clicking on the "Change aggregation rule...". Like here we want to use the "Temperature" regular expression to aggregate: </p>
+</div>
+
+
+<img src="public/images/SingleServerWizard5b.jpg"/><br/>
+<br/>
+
+
+<div class="alert alert-success">
+<p><strong>Tip</strong>:You man click on the "Open" in the "Node List" Column in the table to get the nodes have this value. Note that this is URL addressable too. e.g.: http://localhost:9000/agents/aggregateMetaDataNodeList?nodeGroupType=ADHOCDATASTORE_NODEGROUP_20140115162653056-0800&agentCommandType=GET_PUBLIC_WEATHER_APIVARREPLACE&value=-3&timeStamp=20140115162653406-0800&rawDataSourceType=LOG_FILE&aggrRule=PATTERN_WEATHER_WSDL_TEMPERATURE</p>
+</div>
+
+<img src="public/images/SingleServerWizard5c.jpg"/><br/>
+<br/>
+
+<br/><br/>
+<div class="alert alert-success">
+<p><strong>Tip: Add Back Pie Chart Visualization</strong>: We originally have a pie chart view besides the table view with the <a href="http://www.highcharts.com/">Highcharts</a> library. We removed it due to potential license issues. If you use sueprman for  non-commercial purpose, you may want to restore the pie chart visualization. The data for feeding the pie chart has been passed to the frontend. Please check detailed instruction on the source code at /views/Agents/aggregatePieChart.html 
+ </p>
+</div>
+
+
+
+
+<br/><br/>
+ <p class="lead">3. Click <i class="fa fa-list fa-lg"></i>: for get a text view after the regular expression aggregation 
+</p>
+<img src="public/images/SingleServerWizard6.jpg"/><br/>
+<br/>
+
+
+
+
+
+ <p class="lead">  Here are some sample log names and how to access them.
+</p>
+
+<pre class="prettyprint lang-java linenums">
+// Logs for predefined node group
+20140114134629472-0800~ADHOC_NODE_LIST_CRAIGLIST~GET_CRAIGSLIST_RSS.jsonlog.txt
+Access: http://localhost:9000/logs/logContent/20140114134629472-0800~ADHOC_NODE_LIST_CRAIGLIST~GET_CRAIGSLIST_RSS.jsonlog.txt
+
+// Log for ad hoc node group
+20140113164841803-0800~ADHOCDATASTORE_NODEGROUP_20140113164841433-0800~GET_PUBLIC_WEATHER_APIVARREPLACE.jsonlog.txt
+</pre>              
+                  
+      </section>               
+      
+
+       <section id="cron">
+          <div class="page-header">
+            <h1>9. Scheduled (Cron) Jobs</h1>
+            <p class="lead"> In Commander, you can run commands to target nodes ondemand through wizards or REST APIs, or on a scheduled time via cron expression (e.g. every hour).
+
+              In the application.conf, you can set cron jobs (scheduled jobs) agentmaster.cronjob.run=true; then, you can check the source code sample: <strong>ScheduledJobSample.java under AgentMaster/app/jobs</strong>. 
+
+            For more information, please check <a href="http://www.playframework.com/documentation/1.2/jobs">Play Framework Scheduled jobs</a> and 
+            <a href="http://quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger">Cron Expressions</a>
+            </p>
+          </div>
+
+ <p class="lead"> The key part inside of Commander to run jobs on predefined node group is as follows:
+</p>
+<pre class="prettyprint lang-java linenums">
+String nodeGroupType = VarUtils.NODEGROUP_CONF_NODEGROUP_ADHOC_NODE_LIST_TOP100WEBSITES;
+String agentCommandType = VarUtils.AGENT_CMD_KEY_GET_FRONT_PAGE;
+AgentCommandProvider.generateUpdateSendAgentCommandToNodeGroupPredefined(nodeGroupType,
+    agentCommandType);     
+</pre>              
+                  
+      </section>  
+
+       <section id="Advanced-Configs">
+          <div class="page-header">
+            <h1>10. Advance Settings</h1>
+            <p class="lead"> Additional features and settings are listed in the following table. Some common configs are at http://localhost:9000/commands/common  (assuming Commander is running on localhost:9000).
+          </div>
+
+     <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Setting </th>
+                    <th>Description</th>
+                     <th>URL</th>
+                  </tr>
+                </thead>
+                <tbody>
+                   <tr>
+                        <td>Explore Files</td>
+                        <td>Like a simple online file browser. Discover the archived log files.</td>
+                         <td>http://localhost:9000/logs/exploreFiles</td>
+                    </tr>
+
+                    <tr>
+                        <td>System Health</td>
+                        <td>Commander run a system check on JVM memory, threads, and disk space every 5 minutes. You can check the result in the right bottom part in Home page or the url /monitor </td>
+                         <td>http://localhost:9000/monitor ;  http://localhost:9000/monitor/threads ; http://localhost:9000/monitor/disk</td>
+                    </tr>
+ 
+                     <tr>
+                        <td>Config Page</td>
+                        <td>Many config options including editing the .conf file online; clear all data in memory (all the request/response hashmaps), </td>
+                         <td>http://localhost:9000/config</td>
+                    </tr>
+                     <tr>
+                        <td>VarUtils.java</td>
+                        <td>Many more parameters are set in this file under models.utils </td>
+                         <td>N/A</td>
+                    </tr>
+                </tbody>
+            </table>
+      </section>               
+
+       <section id="rest">
+          <div class="page-header">
+            <h1>11. REST APIs and REST Client</h1>
+            <p class="lead"> In Commander, you can not only run commands via web user interface or wizards; you can also run via the REST APIs and rest client. Detail examples please check <a href="usecase.html">Use Cases</a> page.               
+            </p>
+			
+			<p class="lead">
+
+			For more details about the REST APIs, 
+The request and response JSON are mapped to the corresponding JAVA class in package models.rest.beans.requests and models.rest.beans.responses. For the response not aggregated case: the response is a JSON dump of Map [String, NodeData]
+
+			
+            </p>
+			
+			<p class="lead">
+
+For how the REST request/response are processed: check Commands.java in controller: Check the following 2 functions (1) genUpdateSendCommandWithReplaceVarMapAdhocJson() and (2) genUpdateSendCommandWithReplaceVarMapNodeSpecificAdhocJson()
+
+			
+            </p>			
+			
+          </div>
+      </section>                            
+
+
+       <section id="production">
+          <div class="page-header">
+            <h1>12. Production Mode</h1>
+            <p class="lead"> The default Commander is running in "Develop" mode which has lower performance and using single thread for handling http request. If you want to deploy Commander into Production, please just use the application.conf.master/slave in the conf folder to overwrite the application.conf. The different of master/slave is the whether to run cron job.  Details of Play Framework project deployment please check <a href="http://www.playframework.com/documentation/1.2.7/production">here</a>.          
+            </p>
+          </div>
+      </section>                            
+
+
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+    <!-- Footer
+    ================================================== -->
+    <footer class="footer">
+
+      <div class="container">
+       
+        <p>Code licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a>, documentation and video under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+
+<script type="text/javascript">
+var sc_project=9543227; 
+var sc_invisible=0; 
+var sc_security="1ab09d11"; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="hits counter"
+href="http://statcounter.com/free-hit-counter/"
+target="_blank"><img class="statcounter"
+src="http://c.statcounter.com/9543227/0/1ab09d11/0/"
+alt="hits counter"></a></div></noscript>
+<!-- End of StatCounter Code for Default Guide -->
+
+
+        </p>
+    
+
+
+      </div>
+
+       <p>&copy; 2013-2014  eBay Software Foundation</p>
+    </footer>
+ <script src="public/javascripts/jquery.js"></script>
+ <script src="public/javascripts/bootstrap.min.js"></script>
+  <script src="public/javascripts/prettify/prettify.js"></script>
+ 
+</body>
+</html>
+

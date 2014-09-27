@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+   <title>REST Commander - Parallel Async HTTP Client as a Service, Speaks HTTP at Scale (Formerly known as REST Superman) </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="description" content="REST Commander - Parallel Async HTTP client as a service ; Akka based REST client, scalable web server monitoring, web service, eBay Opensource. (Formerly known as REST Superman) ">
+    <meta name="author" content="eBay Software Foundation">
+
+    <!-- Le styles -->
+
+
+    <link href="public/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="public/stylesheets/font-awesome.min.css" rel="stylesheet">
+    <link href="public/stylesheets/bootstrap-responsive.min.css" rel="stylesheet">
+	<link href="public/stylesheets/docs.css" rel="stylesheet">
+
+	 <!-- Prettify styles
+  	<link href="public/stylesheets/sunburst.css" rel="stylesheet">
+  	<link href="public/javascripts/prettify/prettify.css" rel="stylesheet">
+	  -->
+	 <link href="public/javascripts/prettify/prettify.css" rel="stylesheet">
+  <link rel="shortcut icon" href="public/images/ico/favicon.ico">
+    
+
+
+
+  </head>
+
+  <body>
+
+
+  <body data-spy="scroll"  data-target=".bs-docs-sidebar"  onload="prettyPrint()">
+
+
+
+<div class="navbar navbar-fixed-top navbar-inverse">
+	<div class="navbar-inner">
+			<a class="brand" href="index.html">Commander</a>
+		<div class="container">
+
+			<div class="nav-collapse">
+				<ul class="nav">
+
+          <li><a href="index.html">Home</a></li>
+          <li class="active"><a href="get-started.html">Get Started</a></li>
+          <li ><a href="documentation.html">Documentation</a></li>
+          <li><a href="usecase.html">Use Cases</a></li>
+          <li><a href="monitoring-sample.html">Monitoring Sample</a></li>
+          <li><a href="contact.html">Contact</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Subhead
+================================================== -->
+<header class="jumbotron subhead" id="overview">
+  <div class="container">
+    <h1>Getting Started</h1>
+    <p class="lead">Setup, overview, work flow, and  step by step GUI wizards screenshots to hit 3 web servers to aggregate health and hit top 100 websites in the world.</p>
+  </div>
+</header>
+
+
+
+  <div class="container-fluid">
+
+
+    <!-- Docs nav
+    ================================================== -->
+    <div class="row-fluid">
+      <div class="span3 bs-docs-sidebar" >
+        <ul class="nav nav-list bs-docs-sidenav"  data-spy="affix" data-offset-top="200">
+          <li><a href="#setup"><i class="icon-chevron-right"></i>Download and Setup</a></li>
+          <li><a href="#proj-overview"><i class="icon-chevron-right"></i>Overview</a></li>
+          <li><a href="#checkvi"><i class="icon-chevron-right"></i> Check 3 Servers Health</a></li>
+          <li><a href="#hit100"><i class="icon-chevron-right"></i>Hit Top 100 Websites </a></li>
+
+          <li><a href="#some-exercise"><i class="icon-chevron-right"></i>Some Exercise</a></li>
+           <li><a href="#nextPage"><i class="icon-chevron-right"></i>Next </a></li>
+           
+        </ul>
+      </div>
+      <div class="span9">
+
+
+
+
+        <section id="setup">
+          <div class="page-header">
+            <h1>1. Download and Setup</h1>
+          </div>
+          <div class="row-fluid">
+              <h2>1.1 Download Latest REST Commander Source</h2>
+              <p><strong>Fastest way to get started:</strong> get the latest REST Commander source code package or fork/clone our <a href="https://github.com/eBay/restsuperman">Github repo</a>.</p>
+              <br/>
+              <p><a class="btn btn-large btn-primary" href="https://github.com/eBay/restsuperman/archive/master.zip" onclick="_gaq.push(['_trackEvent', 'Getting started', 'Download', 'Download compiled']);"><i class="fa fa-download"></i> Download REST Commander (78 MB)</a></p>
+
+              <br>
+              
+              <h2>1.2 Start REST Commander with Zero-installation<a name="a_zero_installation"></a></h2>
+              
+              <p>REST Commander project is built based on Play! Framework, on the details for how to deploy and start application in Play! Framework, please refer to the <a href="http://www.playframework.com/documentation/2.0.4/Production">Official Documentation</a>
+              and <a href="http://www.playframework.com/documentation/1.2.4/install">Installation Guide</a>. Before downloading, be sure to have Java (JRE or JDK) pre-installed on your machine.</p>
+              
+
+              <p>REST Commander supports one-click start with zero-installation. Based on the operational system you use, simply run the command below to start the REST Commander instance. Here assuming you deployed REST Commander application on your local machine(http://localhost:9000/), after service is up, you can visit the REST Commander home page at</p>
+              <pre class="prettyprint lang-java">http://localhost:9000/</pre>
+
+
+
+<div class="alert alert-success">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <Strong>Tip!</strong> <strong>View job progress</strong>: We strongly recommend you use <strong>"tail"</strong> command in Linux or <a href="http://www.baremetalsoft.com/baretail/download.php?p=m">BareTail</a> in Windows or Import into eclipse to check the logs of the Commander Server. <strong>This will enable you to track each job status and progress in real time</strong>. Tail this file: RestCommander/AgentMaster/logs/system.out
+</div>
+
+<br/>
+<div class="alert alert-success">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <Strong>Tip!</strong> <strong>View JSON in right format</strong>: We strongly recommend you install JSON formatter / viewer in your browser for best experience in checking raw request and response data. E.g. please install plugin of <a href="http://jsonview.com/">JsonView</a> in Chrome or Firefox.
+</div>
+              
+              <h3>Linux/Mac</h3>
+              <p>Make sure you have Java (OpenJDK or SunJDK) installed. Extract the source code to local file system, for example <b>/home/user/RestCommander/</b>. Run the following command in Terminal to start the REST Commander:</p>
+
+
+<div class="alert alert-block">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <Strong>Warning!</strong> For Linux/Mac users, please first add "execute mode" by running:  "chmod +x" for "play-1.2.4/play". Or Play server will not start.
+</div>
+
+
+          
+
+              <pre class="prettyprint lang-java">sh /home/user/RestCommander/start_application_linux_or_mac.sh start</pre>
+              <p>To monitor the real-time system log  and job progress of REST Commander services, we suggest use <b>tail</b> command, for example:</p>
+              <pre class="prettyprint lang-java">tail -f /home/user/RestCommander/AgentMaster/logs/system.out</pre>
+              
+
+              <h3>Windows</h3>
+              <p>Make sure you have <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java (JDK6+ or just JRE)</a> installed. Extract the source to local file system, for example <b>c:/RestCommander/</b>. Then simply execute the following .bat file to start REST Commander:</p>
+              <pre class="prettyprint lang-java">c:/RestCommander/start_application_win.bat</pre>
+              <p>To monitor the real-time system log and job progress of REST Commander services in Windows environment, we suggest use the free tool <a href="http://www.baremetalsoft.com/baretail/download.php?p=m">BareTail</a> to open the following system log file</p>
+              <pre class="prettyprint lang-java">c:/RestCommander/AgentMaster/logs/system.out</pre>
+              
+
+
+    <p class="lead">After successfully starting Commander, you should be able to see the following page at http://localhost:9000 in your browser.</p>
+
+  <br>
+            <img src="public/images/HomePage.jpg"/>
+
+              <h2>1.3 Import into Eclipse </h2>
+              <p class="lead">REST Commander is a Play Framework V1.2.4 (Java) project, more information about importing into Eclipse IDE is <a href="http://www.playframework.com/documentation/1.2.7/ide">here</a>.</p>
+              <p>Before importing REST Commander project into Eclipse workspace, you need to run the eclipsify process to generate Eclipse project metadata.  You can use &quot;eclipsify&quot; toolkit provided by Play! Framework for it. Clone project in Git from <a href="https://github.com/eBay/restsuperman">Github REST Commander Repo</a> to local machine, e.g., C:\RestCommander\AgentMaster. <br><p>In Windows environment, simply double click the following .bat file: </p>
+              <pre class="prettyprint  lang-cpp">S:\GitSources\AgentMaster\AgentMaster\eclipsify_application.windows.bat</pre>
+              </p>
+              <p>Or, in command line run: </p>
+              <pre class="prettyprint  lang-cpp">S:\GitSources\AgentMaster\AgentMaster>play-1.2.4\play eclipsify AgentMaster</pre>
+              <p>Note that for Linux/Mac user: need to run "chmod +x" for "play-1.2.4/play". <br>Import existing project in Eclipse: import the AgentMaster folder.</p>
+              <p>Compile errors? Try rebuild and clean: (menu: Project->Clean->Clean all projects)</p>
+              <p>Run application: Open Eclipse, import existing project. After import, check left navigate, under "eclipse" folder: AgentMaster.launch : run as AgentMaster. Then open browser: http://localhost:9000/</p>
+            
+
+              <h2>1.4 Shutdown REST Commander</h2>
+              <h3>Linux/Mac</h3>
+              Run the following command to stop REST Commander service:
+              <pre class="prettyprint lang-java">sh /home/user/RestCommander/start_application_linux_or_mac.sh stop</pre>
+              <h3>Windows</h3>
+              <p>When you close the window of start_application_win.bat. The server will be ended. 
+
+                Double click the following file to remove the pid and clean up the service, so that next time Commander can be run successfully. <pre class="prettyprint lang-java">c:/RestCommander/clean_application_pid_after_run_win.bat</pre></p>
+
+
+          </div>
+        </section>
+
+        <section id="proj-overview">
+          <div class="page-header">
+            <h1>2. Overview</h1>
+          </div>
+
+
+
+       
+          <h2>2.1 Basic Work Flows</h2>
+          <p class="lead"> This graph gives the basic idea of REST Commander work flow. It obtains the target server as a "node group" and a command for the URL to hit, and then send the requests in parallel. The response and request for each server become a pair and saved into a hashmap into memory. This hashmap is also dumped into disk with timestamp as a json file. From this request/response pair for each node, a regular expression is used to extract any substring from the response content. There is a default aggregation mode just to aggregate on the HTTP response status code.</p>
+
+          <div class="alert alert-success">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+<strong>Notations: Nodes and Commands</strong>: We strongly recommend you review the simple <a href="documentation.html#a_notation_table">notation table</a>. In Commander we use "node" or "node group" to denote single or multiple target servers. And we use "command" to denote an HTTP request.
+</div>
+
+
+
+            <div>
+              <img src="public/images/workflow_v3.png"/>
+            </div>
+
+       
+
+        </section>
+
+      <section id="checkvi">
+          <div class="page-header">
+            <h1>3. Sample: Check 3 Servers Health and Aggregate Responses</h1>
+          </div>
+
+   <p class="lead"> <strong>Summary</strong>: We want to hit 3 web servers on a uniform URL of "/validateInternals.html" with CPU/Memory/Health information. Will show you how easy to fire the requests and aggregate the responses.
+
+<ul>
+<li> <a href="http://www.yangli907.com/validateInternals.html">http://www.yangli907.com/validateInternals.html</a></li>
+<li><a href="http://www.jeffpei.com/validateInternals.html">http://www.jeffpei.com/validateInternals.html</a></li>
+<li><a href="http://www.restsuperman.com/validateInternals.html">http://www.restsuperman.com/validateInternals.html</a></li>
+</ul>
+
+</p>
+
+   <p class="lead"> For simplicity, we have defined a "node group" containing the 3 servers, and a "command" that is to hit this URL of "/validateInternals.html". For more details or learning how to create a new node group or command, please check <a href="documentation.html#Nodes">Nodes</a> and <a href="documentation.html#Commands">Commands</a> on Documentation page. 
+</p>
+
+
+
+<br/>
+ <p class="lead"> 1.<strong>Start the wizard on predefined nodes</strong>: Click the "Predefined Node" button for Command Wizard in "Home" page: localhost:9000/commands/wizard.  If you want to send requests to an arbitrary list of nodes with pre-definition, you may use the wizard for "Ad hoc node" or leverage the REST API mode (Check <a href="usecase.html">Use Cases</a> page).
+</p>
+<img src="public/images/ViWizard0.jpg"/><br/>
+
+<br/>
+ <p class="lead"> 2.<strong>Select the node group</strong>: ADHOC_NODE_LIST_SAMPLE_WEBSERVERS. Here its naming may be confusing. here this is a predefined node group, although the name has "ADHOC_NODE_LIST".
+</p>
+<img src="public/images/ViWizard1.jpg"/><br/>
+
+<br/>
+ <p class="lead"> 3. <strong>Select the command</strong>: GET_VALIDATE_INTERNALS.
+</p>
+<img src="public/images/ViWizard2.jpg"/><br/>
+
+<br/>
+ <p class="lead"> 4. <strong>Send requests</strong>.
+</p>
+<img src="public/images/ViWizard3.jpg"/><br/>
+
+<br/><br/>
+<br/> <p class="lead"> 5-A. <strong>Job status</strong>: From the system.out log for this job: it completes in 0.4 seconds.
+</p> <img src="public/images/ViWizard4.jpg"/><br/>
+
+
+<br/>
+ <p class="lead"> 5-B. <strong>Response returned.</strong>: After a couple of seconds, the response return. The <strong>"Response data"</strong> shows the raw JSON responses. <strong>"Aggregation"</strong> gives the table based view of aggregation  with regex; <strong>"Aggregation in text"</strong> gives the text based view of aggregation with regex. Now the responses are not only in the memory but also saved as text json log files in the disk. You may view the "Response logs" to view them too.
+</p>
+<img src="public/images/ViWizard4b.jpg"/><br/>
+
+
+
+<br/><br/>
+<br/> <p class="lead"> 6-A. <strong>Response data</strong>:shows the raw JSON responses.
+</p> <img src="public/images/ViWizard5.jpg"/><br/>
+<br/><br/>
+<br/> <p class="lead"> 6-B1. <strong>Aggregation: Default</strong>: Click "Aggregation" will give the table based view of aggregation. Default aggregation rule is "SUPERMAN_SPECIAL_STATUS_CODE", which is the HTTP status code. For more information about aggregation, please view <a href="documentation.html#Aggregation">Aggregation</a> Section in Documentation page.
+</p> <img src="public/images/ViWizard5b.jpg"/><br/>
+
+
+<br/><br/>
+<br/> <p class="lead"> 6-B2. <strong>Aggregation: CPU</strong>: Change the aggregation rule (regular expression) to PATTERN_VI_SERVER_CPU, will give the strings extracted by the regulare expression: 
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">.*<span style="color: #007700">&lt;td&gt;</span>CPU-Usage-Percent<span style="color: #007700">&lt;/td&gt;</span>\s*<span style="color: #007700">&lt;td&gt;</span>(.*?)<span style="color: #007700">&lt;/td&gt;</span>[\s\S]*
+</pre></div>
+
+</p> <img src="public/images/ViWizard5b2.jpg"/><br/>
+
+<br/><br/>
+<br/> <p class="lead"> 6-B3. <strong>Aggregation: Health</strong>: Change the aggregation rule (regular expression) to PATTERN_VI_SERVER_HEALTH, will give the strings extracted by the regulare expression: 
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">.*<span style="color: #007700">&lt;td&gt;</span>Server-Is-Healthy<span style="color: #007700">&lt;/td&gt;</span>\s*<span style="color: #007700">&lt;td&gt;</span>(.*?)<span style="color: #007700">&lt;/td&gt;</span>[\s\S]*
+</pre></div>
+
+
+</p> <img src="public/images/ViWizard5b3.jpg"/><br/>
+
+
+<br/> <p class="lead"> 6-B4. <strong>Aggregation: Check Node List</strong>: Click the "Open" in the "Node List" column for the row of "Extracted String" is "true": you will find the 2 nodes that have the values as True. .
+</p> <img src="public/images/ViWizard5b4.jpg"/><br/>
+
+
+<br/><br/>
+<br/> <p class="lead"> 6-C. <strong>Aggregation in text</strong>: It gives the text based view of aggregation with the default aggregation based on HTTP response status code. You may change the URL to use another aggregation rule.
+</p> <img src="public/images/ViWizard5c.jpg"/><br/>
+
+
+
+
+      </section>     
+
+      
+    <section id="hit100">
+          <div class="page-header">
+            <h1>3. Sample: Hit Top 100 Website Front Page</h1>
+
+   </div>            
+            <p class="lead">  We obtain from Wikipedia for the top 100 websites and remove some inappropriate ones, there are 89 websites left.
+              Similar to the previous example, you can use the same wizard but change the node group to be "ADHOC_NODE_LIST_TOP100WEBSITES" and command to be "GET_FRONT_PAGE". We will obtain the responses. Because each website has a very different response, we just show the aggregation on HTTP response status codes here.
+            </p>
+
+
+<br/> <p class="lead"> <strong>Job status</strong>:From the system.out log for this job: it completes in 1.848 seconds. You may find the last two are significantly slower than the rest of them. 
+
+
+<div class="alert alert-success">
+<p><strong>Tip</strong>: It is very common the last several slow or stuck nodes significantly drag down the performance. Sometimes when the nodes stuck we need our timeout to be fine-tuned. <strong>Timeout setting is very important to performance!</strong> Please check our <a href="documentation.html#timeout">timeout settings</a> here.</p>
+</div>
+
+</p> <img src="public/images/Top100Wizard1.jpg"/><br/>
+
+
+
+
+<br/><br/>
+<br/> <p class="lead"> <strong>Response data</strong>:shows the raw JSON responses of part of the top 100 websites.
+</p> <img src="public/images/Top100Wizard2.jpg"/><br/>
+<br/><br/>
+<br/> <p class="lead"> 6-B1. <strong>Aggregation: Default on HTTP status Code</strong>
+</p> <img src="public/images/Top100Wizard3.jpg"/><br/>
+
+
+
+ 
+      </section>    
+
+
+
+          <section id="some-exercise">
+          <div class="page-header">
+            <h1>Some Exercise</h1>
+          </div>
+            <p class="lead"> <strong>Check how fast for your machine to hit top 500 webistes</strong>: Now it is your turn :-) This may be too simple... Just change the node group to be "ADHOC_NODE_LIST_TOP500WEBSITES"; very similar to the Top 100 webiste. Check the system.out? How long does it take in your computer? May try to tune the timeout and try again.
+            <br/>
+            <br/>
+            Also, can you try to use the wizard for ad hoc nodes to hit some random 40 websites and check it out? You can obtain some websites from the existing node group.
+
+            </p>         
+
+                        <br/>
+            <br/> 
+            <p class="lead"> <strong>Get last update time for 15 craigslist websites</strong>: 1. Try to use the wizard for pre-defined nodes, but change the node group to "ADHOC_NODE_LIST_CRAIGLIST" and command to "GET_CRAIGSLIST_RSS". Then use the aggregation rule of "PATTERN_UPDATETIME_FROM_CRAIGSLIST_RSS": are you able to extract the last updated time for each craiglist website? 
+            </p>
+          
+                  
+      </section>  
+
+      </section>    
+
+
+
+          <section id="nextPage">
+          <div class="page-header">
+            <h1>Next</h1>
+          </div>
+            <p class="lead"> Excellent job! Thanks for your patience of reading this get started tutorial! Please give feedback in our <a href="https://groups.google.com/forum/#!forum/rest-superman-users">google discussion group</a>. We'd love to hear from you. You may continue to read <a href="documentation.html">Documentation</a> page for more on Commander settings, structures and examples. Or you can read <a href="usecase.html">Use Cases</a> page for common use cases, recipes of REST Commander, REST APIs examples.       
+            </p>
+         
+      </section>      
+
+
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+    <!-- Footer
+    ================================================== -->
+    <footer class="footer">
+
+      <div class="container">
+
+        <p>Code licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a>, documentation and video under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+<script type="text/javascript">
+var sc_project=9543227; 
+var sc_invisible=0; 
+var sc_security="1ab09d11"; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="hits counter"
+href="http://statcounter.com/free-hit-counter/"
+target="_blank"><img class="statcounter"
+src="http://c.statcounter.com/9543227/0/1ab09d11/0/"
+alt="hits counter"></a></div></noscript>
+<!-- End of StatCounter Code for Default Guide -->
+        </p>
+
+
+
+      </div>
+
+       <p>&copy; 2013-2014  eBay Software Foundation</p>
+    </footer>
+ <script src="public/javascripts/jquery.js"></script>
+ <script src="public/javascripts/bootstrap.min.js"></script>
+  <script src="public/javascripts/prettify/prettify.js"></script>
+
+</body>
+</html>
+

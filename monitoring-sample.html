@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+   <title>REST Commander - Parallel Async HTTP Client as a Service, Speaks HTTP at Scale (Formerly known as REST Superman)  </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="REST Commander - Parallel Async HTTP client as a service ; Akka based REST client, scalable web server monitoring, web service, eBay Opensource. (Formerly known as REST Superman) ">
+    <meta name="author" content="eBay Software Foundation">
+
+    <!-- Le styles -->
+
+
+    <link href="public/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="public/stylesheets/font-awesome.min.css" rel="stylesheet">
+    <link href="public/stylesheets/bootstrap-responsive.min.css" rel="stylesheet">
+	<link href="public/stylesheets/docs.css" rel="stylesheet">
+
+	 <!-- Prettify styles
+  	<link href="public/stylesheets/sunburst.css" rel="stylesheet">
+  	<link href="public/javascripts/prettify/prettify.css" rel="stylesheet">
+	  -->
+	 <link href="public/javascripts/prettify/prettify.css" rel="stylesheet">
+  <link rel="shortcut icon" href="public/images/ico/favicon.ico">
+    
+
+
+  </head>
+
+  <body>
+
+
+  <body data-spy="scroll"  data-target=".bs-docs-sidebar"  onload="prettyPrint()">
+
+
+
+
+
+<div class="navbar navbar-fixed-top navbar-inverse">
+	<div class="navbar-inner">
+			<a class="brand" href="index.html">Commander</a>
+		<div class="container">
+
+			<div class="nav-collapse">
+				<ul class="nav">
+
+          <li><a href="index.html">Home</a></li>
+          <li><a href="get-started.html">Get Started</a></li>
+          <li ><a href="documentation.html">Documentation</a></li>
+          <li><a href="usecase.html">Use Cases</a></li>
+          <li  class="active"><a href="monitoring-sample.html">Monitoring Sample</a></li>
+          <li><a href="contact.html">Contact</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Subhead
+================================================== -->
+<header class="jumbotron subhead" id="overview">
+  <div class="container">
+    <h1>Monitoring Sample</h1>
+    <p class="lead">Sample script to show a python REST client of Commander, presenting the work flow of monitoring and repair. Simply put into crontab to work.</p>
+  </div>
+</header>
+
+
+
+  <div class="container-fluid">
+
+
+    <!-- Docs nav
+    ================================================== -->
+    <div class="row-fluid">
+      <div class="span3 bs-docs-sidebar" >
+        <ul class="nav nav-list bs-docs-sidenav"  data-spy="affix" data-offset-top="200">
+           <li><a href="#overview"><i class="icon-chevron-right"></i>Overview</a></li>
+          <li><a href="#usecase"><i class="icon-chevron-right"></i> Use Case Description</a></li>
+          <li><a href="#example"><i class="icon-chevron-right"></i>Example</a></li>
+          <li><a href="#workflow"><i class="icon-chevron-right"></i>Workflow</a></li>
+
+        </ul>
+      </div>
+      <div class="span9">
+
+
+
+        <section id="usecase">
+          <div class="page-header">
+                    <p class="lead"> We define <strong>monitoring</strong> as an operation to periodically check the health status of a large number of web servers by obtaining health related metrics. Here we present a sample REST client to Commander. It does a single time checking health status and then conduct remediation (repair) work flow. Simply put this script into <a href="http://unixhelp.ed.ac.uk/CGI/man-cgi?crontab+5">crontab</a> to enable scheduled monitoring and remediation.
+                    </p>
+          
+            <h1>1. Use Case Description</h1>
+          </div>
+              One of the important use cases of Commander is HTTP server cluster monitoring, since Commander runs as a web service to quickly send request to the cluster, you can easily create a simple script which invokes Commander command to get the health status of the cluster, and setup a timer-triggered crontab job to run this script regularly to monitor the cluster.<br>Assuming we have a group of HTTP servers on hundreds of machines, where each of the machines can be accessed from the same http request to get the real time health status(see <a href="usecase.html#usecase-same-request">send same request to different servers using REST Commander</a>). 
+              We want to use Commander to quickly find out the unhealthy machines within the group, and apply appropriate remediation approaches (kill the process, restart the servers, etc.) to recover these unhealthy servers.
+              
+              <p></p>
+
+
+          
+        </section>
+<section id="example">
+          <div class="page-header">
+            <h1>2. REST Client Example in Python</h1>
+            The sample Python script (<a href="sample_script/monitor_workflow_sample.py">download</a>) below first call the getServerHealthStatus() function, which creates a new Commander Command &quot;GET_VALIDATE_INTERNALS&quot; and defines aggregation rule to parse the health status value. Then it sends request to Commander server running on localhost. Commander returns the  json response describing the server group with healthy or unhealthy status.
+
+            <br><br>The getUnhealthyNodeList() function parses json response above to get the list of unhealthy servers, then similar to getServerHealthStatus() function, another request will be sent to Commander server,  which invokes API on each problematic server to restart itself.
+
+            <br>You can then setup timer-triggered crontab job to run this script, which constantly monitors the cluster healthiness. 
+
+<pre class="prettyprint lang-python linenums">
+#!/usr/bin/env python
+# --------------------------------------
+# Author : yangli8@ebay.com
+# Date : 01/11/2014
+# Description : 
+# This script is a sample basic workflow to check the health status for a list of servers, 
+# returns the aggregated health report. For those unhealthy servers, send server restart command
+# to bring them back to normal status. 
+# This script can be easily configured as a crontab job to be executed regularly.
+# --------------------------------------
+
+import sys
+import json
+import urllib
+import urllib2
+import time
+
+if sys.version_info < (3, 0):
+	from urllib2 import urlopen
+else:
+	from urllib.request import urlopen
+
+def main():
+	#list all the servers need to send request to
+	hosts = ["www.restcommander.com","www.yangli907.com","www.jeffpei.com"]
+
+	superman_server = "http://localhost:9000/"
+	complete_uri = superman_server+"commands/genUpdateSendCommandWithReplaceVarMapNodeSpecificAdhocJson" #URL to the REST Commander API
+	serverHealthJson = getServerHealthStatus(complete_uri, hosts) # Call REST Commander API to get server health status json response
+	unhealthyNodeList = getUnhealthyNodeList(serverHealthJson) # Parse the aggregated json response to get unhealthy node list 
+	restartBadNodeList(unhealthyNodeList,superman_server) # Call REST Commander API to restart unhealthy servers
+
+def getServerHealthStatus(server, targets):
+	headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+	data={}
+	data["targetNodes"]=targets #define the target group
+	
+	#the following attributes defined the agent command parameters
+	data["useNewAgentCommand"]="true"
+	data["newAgentCommandLine"]="GET_VALIDATE_INTERNALS GET http 80 /validateInternals.html 0 0 5000 SUPERMAN_GLOBAL"
+	data["newAgentCommandContentTemplate"]="$AM_FULL_CONTENT"
+
+	#The following attribtes defined the response aggregation preference
+	data["willAggregateResponse"]="true" #to aggregate the raw response
+	data["aggregationType"]="PATTERN_SERVER_HEALTH" #parsing regex Content-type
+	data["useNewAggregation"]="true"
+	raw_regex=".*&lt;td&gt;Server-Is-Healthy&lt;/td&gt;\s*&lt;td&gt;(.*?)&lt;/td&gt;[\s\S]*"
+	data["newAggregationExpression"]=urllib.quote_plus(raw_regex)
+	print "The json body for request is: \n %s" % json.dumps(data, sort_keys=True, indent=3, separators=(',', ':'))
+	#Define the request post body and headers
+	req = urllib2.Request(server, json.dumps(data), headers)
+	response = urllib2.urlopen(req)
+	#parse the server response to json format
+	responseJson = json.load(response)
+	return responseJson
+
+
+def getUnhealthyNodeList(response):
+#
+#Parse the aggregated server json response, 
+#put all nodes with unhealthy status to a list
+#
+	print "The aggregated json response returned from Commander is \n %s" % json.dumps(response, sort_keys=True, indent=3, separators=(',', ':'))
+	healthyNodeList=[]
+	unhealthyNodeList=[]
+	try:
+		for group in response["aggregationValueToNodesList"]:
+			hosts = group["nodeList"]
+			status = group["value"]
+			if status == "False":
+				for host in hosts:
+					unhealthyNodeList.append(host)
+			elif status == "True":
+				for host in hosts:
+					healthyNodeList.append(host)
+		print "The healthy nodes are: %s" % healthyNodeList
+		print "The unhealthy nodes are: %s" % unhealthyNodeList
+		return unhealthyNodeList
+	except KeyError:
+		print("ERROR: unable to parse the response")
+		sys.exit(1)
+
+def restartBadNodeList(hosts,servers):
+#
+#This function is a sample to demostrate using Commander to send restart command to unhealthy servers.
+#The post command is for demo purpose only, no actual request is posted for server restart.
+#
+	print "*******starting restart server********"
+
+	headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+	data={}
+	data["targetNodes"]=hosts #define the target group
+	
+	data["useNewAgentCommand"]="true"
+	data["newAgentCommandLine"]="POST_RESTART_SERVER POST http 80 /restart 0 0 5000 SUPERMAN_GLOBAL"
+	data["newAgentCommandContentTemplate"]="$AM_FULL_CONTENT"
+
+	req = urllib2.Request(servers, json.dumps(data), headers)
+	#response = urllib2.urlopen(req)
+	#responseJson = json.load(response)
+	time.sleep(3)
+	print "*******finished restart server********"
+
+
+if __name__ == "__main__":
+	main() 
+            </pre>
+
+
+<p class="lead">The output of the script is as follows:</p>
+<pre class="prettyprint lang-python linenums">
+The json body for request is: 
+ {
+   "aggregationType":"PATTERN_SERVER_HEALTH",
+   "newAgentCommandContentTemplate":"$AM_FULL_CONTENT",
+   "newAgentCommandLine":"GET_VALIDATE_INTERNALS GET http 80 /validateInternals.html 0 0 5000 SUPERMAN_GLOBAL",
+   "newAggregationExpression":".%2A%3Ctd%3EServer-Is-Healthy%3C%2Ftd%3E%5Cs%2A%3Ctd%3E%28.%2A%3F%29%3C%2Ftd%3E%5B%5Cs%5CS%5D%2A",
+   "targetNodes":[
+      "www.restcommander.com",
+      "www.yangli907.com",
+      "www.jeffpei.com"
+   ],
+   "useNewAgentCommand":"true",
+   "useNewAggregation":"true",
+   "willAggregateResponse":"true"
+}
+The aggregated json response returned from Superman is 
+ {
+   "aggregationMap":{
+      "False":"1",
+      "True":"2"
+   },
+   "aggregationValueToNodesList":[
+      {
+         "isError":false,
+         "nodeList":[
+            "www.yangli907.com"
+         ],
+         "value":"False"
+      },
+      {
+         "isError":false,
+         "nodeList":[
+            "www.jeffpei.com",
+            "www.restcommander.com"
+         ],
+         "value":"True"
+      }
+   ]
+}
+The healthy nodes are: [u'www.jeffpei.com', u'www.restcommander.com']
+The unhealthy nodes are: [u'www.yangli907.com']
+*******starting restart server********
+*******finished restart server********
+</pre>
+
+            </div>
+            </section>
+        <section id="workflow">
+          <div class="page-header">
+            <h1>3. Workflow</h1>
+          </div>
+
+       
+          <h3>3.1 Define the Request</h3>
+            <p>In the example above, you first need to define the following parameters in the http request sent to REST Commander web service:</p>
+            1. Target server groups which contains all the machines to be monitored;<br>
+            2. The http request to access the health status page on each server; <br>
+            3. Regular expression to extract health status from server response. 
+            <br><br>
+            The composed request json body looks like the following:
+            <pre class="prettyprint lang-json linenums">
+POST URL: http://localhost:9000/commands/generateUpdateSendAgentCommandToAdhocNodeGroup
+POST BODY:
+{
+   "targetNodes":[
+      "www.restcommander.com",
+      "www.jeffpei.com",
+      "www.yangli907.com"
+   ],
+   "willAggregateResponse":true,
+   "useNewAggregation":true,
+   "agentCommandType":"GET_VALIDATE_INTERNAL",
+   "aggregationType":"PATTERN_PARSE_MONITOR_HEALTH",
+   "newAgentCommandLine":"GET_VALIDATE_INTERNAL GET http 80 /validateInternals.html 0 0 5000 SUPERMAN_GLOBAL",
+   "newAggregationExpression":".%2A%3Ctd%3EServer-Is-Healthy%3C%2Ftd%3E%5Cs%2A%3Ctd%3E%28.%2A%3F%29%3C%2Ftd%3E%5B%5Cs%5CS%5D%2A",
+   "useNewAgentCommand":"true"}
+            </pre>
+          <h3>3.2 Send Request to Aggregate Cluster Health Status</h3>
+          The next step is to send the request defined above to REST Commander web service, and extract the list of unhealthy server from Commander response.<br>
+          Server Response with aggregation on the "Server-Is-Healthy" attribute:
+
+<pre class="prettyprint lang-json linenums">
+{
+   &quot;aggregationMap&quot;:{
+      &quot;False&quot;:&quot;1&quot;,
+      &quot;True&quot;:&quot;2&quot;
+   },
+   &quot;aggregationValueToNodesList&quot;:[
+      {
+         &quot;isError&quot;:false,
+         &quot;nodeList&quot;:[
+            &quot;www.yangli907.com&quot;
+         ],
+         &quot;value&quot;:&quot;False&quot;
+      },
+      {
+         &quot;isError&quot;:false,
+         &quot;nodeList&quot;:[
+            &quot;www.jeffpei.com&quot;,
+            &quot;www.restcommander.com&quot;
+         ],
+         &quot;value&quot;:&quot;True&quot;
+      }
+   ]
+}
+          </pre>
+
+
+          <h3>3.3 Recover the Unhealthy Servers</h3>
+          After the unhealthy server information is retrieved, we can use Commander web service to send another http request to recover the server, such as killing problematic process, or restart the server. 
+          The process to define the request and send to REST Commander web service is similar to the request above.
+          <br></section>
+
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+    <!-- Footer
+    ================================================== -->
+    <footer class="footer">
+
+      <div class="container">
+
+        <p>Code licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a>, documentation and video under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
+
+<script type="text/javascript">
+var sc_project=9543227; 
+var sc_invisible=0; 
+var sc_security="1ab09d11"; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="hits counter"
+href="http://statcounter.com/free-hit-counter/"
+target="_blank"><img class="statcounter"
+src="http://c.statcounter.com/9543227/0/1ab09d11/0/"
+alt="hits counter"></a></div></noscript>
+<!-- End of StatCounter Code for Default Guide -->
+        </p>
+
+      </div>
+
+       <p>&copy; 2013-2014  eBay Software Foundation</p>
+    </footer>
+ <script src="public/javascripts/jquery.js"></script>
+ <script src="public/javascripts/bootstrap.min.js"></script>
+  <script src="public/javascripts/prettify/prettify.js"></script>
+
+
+</body>
+</html>
+

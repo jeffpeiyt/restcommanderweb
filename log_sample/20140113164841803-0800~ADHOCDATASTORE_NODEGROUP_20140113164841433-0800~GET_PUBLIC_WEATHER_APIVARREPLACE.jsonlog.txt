@@ -1,0 +1,80 @@
+{
+  "95131": {
+    "fqdn": "95131",
+    "dataMap": {
+      "GET_PUBLIC_WEATHER_APIVARREPLACE": {
+        "requestParameters": {
+          "TRUE_URL": "/WeatherWS/Weather.asmx",
+          "PREPARE_TIME": "2014-01-13 16:48:41.445-0800",
+          "NODE_REQUEST_WILL_EXECUTE": "true",
+          "AM_FULL_CONTENT": "\u003csoapenv:Envelope xmlns:soapenv\u003d\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:weat\u003d\"http://ws.cdyne.com/WeatherWS/\"\u003e\u003csoapenv:Header/\u003e\u003csoapenv:Body\u003e\u003cweat:GetCityWeatherByZIP\u003e\u003cweat:ZIP\u003e$APIVARREPLACE_ZIP_VAR\u003c/weat:ZIP\u003e\u003c/weat:GetCityWeatherByZIP\u003e\u003c/soapenv:Body\u003e\u003c/soapenv:Envelope\u003e",
+          "TRUE_PORT": "80",
+          "REPLACE-VAR_APIVARREPLACE_SUPERMANSPECIAL_TARGET_NODE_VAR": "wsf.cdyne.com",
+          "HEADER_TYPE": "HEADER_PUBLIC_WEATHER",
+          "HTTP_METHOD": "POST",
+          "REPLACE-VAR_APIVARREPLACE_ZIP_VAR": "95131",
+          "TRUE_CONTENT": "\u003csoapenv:Envelope xmlns:soapenv\u003d\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:weat\u003d\"http://ws.cdyne.com/WeatherWS/\"\u003e\u003csoapenv:Header/\u003e\u003csoapenv:Body\u003e\u003cweat:GetCityWeatherByZIP\u003e\u003cweat:ZIP\u003e95131\u003c/weat:ZIP\u003e\u003c/weat:GetCityWeatherByZIP\u003e\u003c/soapenv:Body\u003e\u003c/soapenv:Envelope\u003e",
+          "TRUE_TARGET_NODE": "wsf.cdyne.com"
+        },
+        "responseContent": {
+          "response": "\u003c?xml version\u003d\"1.0\" encoding\u003d\"utf-8\"?\u003e\u003csoap:Envelope xmlns:soap\u003d\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsi\u003d\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd\u003d\"http://www.w3.org/2001/XMLSchema\"\u003e\u003csoap:Body\u003e\u003cGetCityWeatherByZIPResponse xmlns\u003d\"http://ws.cdyne.com/WeatherWS/\"\u003e\u003cGetCityWeatherByZIPResult\u003e\u003cSuccess\u003etrue\u003c/Success\u003e\u003cResponseText\u003eCity Found\u003c/ResponseText\u003e\u003cState\u003eCA\u003c/State\u003e\u003cCity\u003eSan Jose\u003c/City\u003e\u003cWeatherStationCity\u003eLivermore\u003c/WeatherStationCity\u003e\u003cWeatherID\u003e3\u003c/WeatherID\u003e\u003cDescription\u003eMostly Cloudy\u003c/Description\u003e\u003cTemperature\u003e59\u003c/Temperature\u003e\u003cRelativeHumidity\u003e44\u003c/RelativeHumidity\u003e\u003cWind\u003eE12\u003c/Wind\u003e\u003cPressure\u003e30.17F\u003c/Pressure\u003e\u003cVisibility /\u003e\u003cWindChill /\u003e\u003cRemarks /\u003e\u003c/GetCityWeatherByZIPResult\u003e\u003c/GetCityWeatherByZIPResponse\u003e\u003c/soap:Body\u003e\u003c/soap:Envelope\u003e",
+          "responseTime": "2014.01.13.16.48.41.796-0800",
+          "statusCode": "200 OK",
+          "isError": false
+        }
+      }
+    }
+  },
+  "48824": {
+    "fqdn": "48824",
+    "dataMap": {
+      "GET_PUBLIC_WEATHER_APIVARREPLACE": {
+        "requestParameters": {
+          "TRUE_URL": "/WeatherWS/Weather.asmx",
+          "PREPARE_TIME": "2014-01-13 16:48:41.446-0800",
+          "NODE_REQUEST_WILL_EXECUTE": "true",
+          "AM_FULL_CONTENT": "\u003csoapenv:Envelope xmlns:soapenv\u003d\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:weat\u003d\"http://ws.cdyne.com/WeatherWS/\"\u003e\u003csoapenv:Header/\u003e\u003csoapenv:Body\u003e\u003cweat:GetCityWeatherByZIP\u003e\u003cweat:ZIP\u003e$APIVARREPLACE_ZIP_VAR\u003c/weat:ZIP\u003e\u003c/weat:GetCityWeatherByZIP\u003e\u003c/soapenv:Body\u003e\u003c/soapenv:Envelope\u003e",
+          "TRUE_PORT": "80",
+          "REPLACE-VAR_APIVARREPLACE_SUPERMANSPECIAL_TARGET_NODE_VAR": "wsf.cdyne.com",
+          "HEADER_TYPE": "HEADER_PUBLIC_WEATHER",
+          "HTTP_METHOD": "POST",
+          "REPLACE-VAR_APIVARREPLACE_ZIP_VAR": "48824",
+          "TRUE_CONTENT": "\u003csoapenv:Envelope xmlns:soapenv\u003d\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:weat\u003d\"http://ws.cdyne.com/WeatherWS/\"\u003e\u003csoapenv:Header/\u003e\u003csoapenv:Body\u003e\u003cweat:GetCityWeatherByZIP\u003e\u003cweat:ZIP\u003e48824\u003c/weat:ZIP\u003e\u003c/weat:GetCityWeatherByZIP\u003e\u003c/soapenv:Body\u003e\u003c/soapenv:Envelope\u003e",
+          "TRUE_TARGET_NODE": "wsf.cdyne.com"
+        },
+        "responseContent": {
+          "response": "\u003c?xml version\u003d\"1.0\" encoding\u003d\"utf-8\"?\u003e\u003csoap:Envelope xmlns:soap\u003d\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsi\u003d\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd\u003d\"http://www.w3.org/2001/XMLSchema\"\u003e\u003csoap:Body\u003e\u003cGetCityWeatherByZIPResponse xmlns\u003d\"http://ws.cdyne.com/WeatherWS/\"\u003e\u003cGetCityWeatherByZIPResult\u003e\u003cSuccess\u003etrue\u003c/Success\u003e\u003cResponseText\u003eCity Found\u003c/ResponseText\u003e\u003cState\u003eMI\u003c/State\u003e\u003cCity\u003eEast Lansing\u003c/City\u003e\u003cWeatherStationCity\u003eLansing\u003c/WeatherStationCity\u003e\u003cWeatherID\u003e-1\u003c/WeatherID\u003e\u003cDescription /\u003e\u003cTemperature\u003e-3\u003c/Temperature\u003e\u003cRelativeHumidity\u003e75\u003c/RelativeHumidity\u003e\u003cWind\u003eSW15\u003c/Wind\u003e\u003cPressure\u003e30.00R\u003c/Pressure\u003e\u003cVisibility /\u003e\u003cWindChill /\u003e\u003cRemarks /\u003e\u003c/GetCityWeatherByZIPResult\u003e\u003c/GetCityWeatherByZIPResponse\u003e\u003c/soap:Body\u003e\u003c/soap:Envelope\u003e",
+          "responseTime": "2014.01.13.16.48.41.773-0800",
+          "statusCode": "200 OK",
+          "isError": false
+        }
+      }
+    }
+  },
+  "95132": {
+    "fqdn": "95132",
+    "dataMap": {
+      "GET_PUBLIC_WEATHER_APIVARREPLACE": {
+        "requestParameters": {
+          "TRUE_URL": "/WeatherWS/Weather.asmx",
+          "PREPARE_TIME": "2014-01-13 16:48:41.446-0800",
+          "NODE_REQUEST_WILL_EXECUTE": "true",
+          "AM_FULL_CONTENT": "\u003csoapenv:Envelope xmlns:soapenv\u003d\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:weat\u003d\"http://ws.cdyne.com/WeatherWS/\"\u003e\u003csoapenv:Header/\u003e\u003csoapenv:Body\u003e\u003cweat:GetCityWeatherByZIP\u003e\u003cweat:ZIP\u003e$APIVARREPLACE_ZIP_VAR\u003c/weat:ZIP\u003e\u003c/weat:GetCityWeatherByZIP\u003e\u003c/soapenv:Body\u003e\u003c/soapenv:Envelope\u003e",
+          "TRUE_PORT": "80",
+          "REPLACE-VAR_APIVARREPLACE_SUPERMANSPECIAL_TARGET_NODE_VAR": "wsf.cdyne.com",
+          "HEADER_TYPE": "HEADER_PUBLIC_WEATHER",
+          "HTTP_METHOD": "POST",
+          "REPLACE-VAR_APIVARREPLACE_ZIP_VAR": "95132",
+          "TRUE_CONTENT": "\u003csoapenv:Envelope xmlns:soapenv\u003d\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:weat\u003d\"http://ws.cdyne.com/WeatherWS/\"\u003e\u003csoapenv:Header/\u003e\u003csoapenv:Body\u003e\u003cweat:GetCityWeatherByZIP\u003e\u003cweat:ZIP\u003e95132\u003c/weat:ZIP\u003e\u003c/weat:GetCityWeatherByZIP\u003e\u003c/soapenv:Body\u003e\u003c/soapenv:Envelope\u003e",
+          "TRUE_TARGET_NODE": "wsf.cdyne.com"
+        },
+        "responseContent": {
+          "response": "\u003c?xml version\u003d\"1.0\" encoding\u003d\"utf-8\"?\u003e\u003csoap:Envelope xmlns:soap\u003d\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsi\u003d\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd\u003d\"http://www.w3.org/2001/XMLSchema\"\u003e\u003csoap:Body\u003e\u003cGetCityWeatherByZIPResponse xmlns\u003d\"http://ws.cdyne.com/WeatherWS/\"\u003e\u003cGetCityWeatherByZIPResult\u003e\u003cSuccess\u003etrue\u003c/Success\u003e\u003cResponseText\u003eCity Found\u003c/ResponseText\u003e\u003cState\u003eCA\u003c/State\u003e\u003cCity\u003eSan Jose\u003c/City\u003e\u003cWeatherStationCity\u003eLivermore\u003c/WeatherStationCity\u003e\u003cWeatherID\u003e3\u003c/WeatherID\u003e\u003cDescription\u003eMostly Cloudy\u003c/Description\u003e\u003cTemperature\u003e59\u003c/Temperature\u003e\u003cRelativeHumidity\u003e44\u003c/RelativeHumidity\u003e\u003cWind\u003eE12\u003c/Wind\u003e\u003cPressure\u003e30.17F\u003c/Pressure\u003e\u003cVisibility /\u003e\u003cWindChill /\u003e\u003cRemarks /\u003e\u003c/GetCityWeatherByZIPResult\u003e\u003c/GetCityWeatherByZIPResponse\u003e\u003c/soap:Body\u003e\u003c/soap:Envelope\u003e",
+          "responseTime": "2014.01.13.16.48.41.801-0800",
+          "statusCode": "200 OK",
+          "isError": false
+        }
+      }
+    }
+  }
+}
